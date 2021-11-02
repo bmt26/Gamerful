@@ -30,12 +30,16 @@ APP_NAME_HERE is a video game recommendation app that selects games based ESRB r
 **Required Must-have Stories**
 
 * [fill in your required user stories here]
-* ...
+* 
+*  User submits desired ESRB and category to view a list of recommended games
+*  User picks their favorite games
+*  User adds friends
+*  User recommends games to their friends
 
 **Optional Nice-to-have Stories**
 
 * [fill in your required user stories here]
-* ...
+* Youtube or Twitch gameplay videos available to watch for games
 
 ### 2. Screen Archetypes
 
