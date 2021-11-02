@@ -12,15 +12,16 @@ Original App Design Project - README Template
 ## Overview
 ### Description
 [Description of your app]
+APP_NAME_HERE is a video game recommendation app that selects games based ESRB ratings and other input. Could potentially be used as a sharing app for those unfamilialar with games, or for parents to buy games for their children.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
-- **Category:**
-- **Mobile:**
-- **Story:**
-- **Market:**
-- **Habit:**
-- **Scope:**
+- **Category:** Social Networking / Gaming
+- **Mobile:** This app would be primarily developed for mobile but would be viable on the computer such as reddit. Functionality wouldn't be limited to mobile devices, however the mobile version could have more features.
+- **Story:** Recommends games by category and ESRB ratings. The user can create and view reviews on the games, pick favorite games, and share these games with friends.
+- **Market:** Any individual could choose to use this app, although the target demographic would be parents and those not familiar with games.
+- **Habit:** This app could be used frequently especially around holidays as this is when more parents purchase games for their children.
+- **Scope:** First we will start with recommending games based on user input. Then this could evolve into reviewing and sharing games amongst other users.
 
 ## Product Spec
 
