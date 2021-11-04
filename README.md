@@ -1,7 +1,4 @@
-Original App Design Project - README Template
-===
-
-# APP_NAME_HERE
+# GAMERFUL
 
 ## Table of Contents
 1. [Overview](#Overview)
@@ -11,12 +8,11 @@ Original App Design Project - README Template
 
 ## Overview
 ### Description
-[Description of your app]
-APP_NAME_HERE is a video game recommendation app that selects games based ESRB ratings and other input. Could potentially be used as a sharing app for those unfamilialar with games, or for parents to buy games for their children.
+Gamerful is a video game recommendation app that selects games based ESRB ratings and other input. Could potentially be used as a sharing app for those unfamilialar with games, or for parents to buy games for their children.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
-- **Category:** Social Networking / Gaming
+- **Category:** Gaming / Review
 - **Mobile:** This app would be primarily developed for mobile but would be viable on the computer such as reddit. Functionality wouldn't be limited to mobile devices, however the mobile version could have more features.
 - **Story:** Recommends games by category and ESRB ratings. The user can create and view reviews on the games, pick favorite games, and share these games with friends.
 - **Market:** Any individual could choose to use this app, although the target demographic would be parents and those not familiar with games.
@@ -29,17 +25,32 @@ APP_NAME_HERE is a video game recommendation app that selects games based ESRB r
 
 **Required Must-have Stories**
 
-* [fill in your required user stories here]
-* 
-*  User submits desired ESRB and category to view a list of recommended games
-*  User picks their favorite games
-*  User adds friends
-*  User recommends games to their friends
+ * User can sign up to create a new account using Parse authentication.
+ * User can log in and log out of his or her account.
+ * The current signed in user is persisted across app restarts.
+ * User will be able to see bottom navigation bar with following tabs:
+   + Home
+   + Search
+   + Review page
+   + Profile Page
+ * In home page user will be able to browse different through list of games.
+ * In search fragment user will be able to search for a specific game or game review.
+ * On review page user will be able to see or post game review.
+ * On profile page user will be able to edit his/her profile, see their posted reviews and logout.
+ * User will be able to click on a game to see its details. Details page will include the following:
+   + Game related images
+   + Game title / description
+   + YouTube trailer
+   + Game info (release date, publisher, user rating, ESRB rating, etc)
+   + Direct link for where to buy the game?
+   + User will be able to post a rating.
+ * Make an app logo.
+
 
 **Optional Nice-to-have Stories**
 
-* [fill in your required user stories here]
-* Youtube or Twitch gameplay videos available to watch for games
+* User will be able to use text to speech in search bar.
+* Youtube or Twitch gameplay videos available to watch for games.
 
 ### 2. Screen Archetypes
 
