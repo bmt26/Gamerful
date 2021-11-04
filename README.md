@@ -49,7 +49,7 @@ Gamerful is a video game recommendation app that selects games based ESRB rating
 
 **Optional Nice-to-have Stories**
 
-* User will be able to use text to speech in search bar.
+* User will be able to use voice search in search bar.
 * Youtube or Twitch gameplay videos available to watch for games.
 
 ### 2. Screen Archetypes
