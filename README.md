@@ -12,13 +12,12 @@
 Gamerful is a game recommendation and review app. This app gives you fast and easy access to details and add reviews of different variety of games. This app is also a great tool for any parents who wants to buy games for their children, as our platform provides reviews from perspective of both parents and children.
 
 ### App Evaluation
-[Evaluation of your app across the following attributes]
 - **Category:** Gaming / Review
 - **Mobile:** This app would be primarily developed for mobile but would be viable on the computer such as reddit. Functionality wouldn't be limited to mobile devices, however the mobile version could have more features.
-- **Story:** Recommends games by category and ESRB ratings. The user can create and view reviews on the games, pick favorite games, and share these games with friends.
+- **Story:** Recommends games by category and user intrest. The user can create and view reviews on the games. Reviews are divided into what parents say and what kids say about the game.
 - **Market:** Any individual could choose to use this app, although the target demographic would be parents and those not familiar with games.
 - **Habit:** This app could be used frequently especially around holidays as this is when more parents purchase games for their children.
-- **Scope:** First we will start with recommending games based on user input. Then this could evolve into reviewing and sharing games amongst other users.
+- **Scope:** First we will start with recommending games based on user input. Then this could evolve into adding and viewing reviews.
 
 ## Product Spec
 
@@ -26,7 +25,11 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 
 **Required Must-have Stories**
 
- * User can sign up to create a new account using Parse authentication.
+ * User can sign up to create a new account using Parse authentication. User can add the following details:
+   + Profile picture
+   + Username
+   + Password
+   + Category: Parent or Child
  * User can log in and log out of his or her account.
  * The current signed in user is persisted across app restarts.
  * User will be able to see bottom navigation bar with following tabs:
