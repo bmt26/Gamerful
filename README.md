@@ -100,8 +100,13 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 ## Wireframes
 <img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Wireframe.jpg" width=600>
 
-### [BONUS] Digital Wireframes & Mockups
+### [BONUS] Digital Wireframes
 <img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Digital%20WireFrame.PNG" width=600>
+
+### [BONUS] Digital Mockup
+<img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Digital1.PNG" width=600>
+<img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Digital2.PNG" width=600>
+<img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Digital3.PNG" width=600>
 
 ### [BONUS] Interactive Prototype
 
