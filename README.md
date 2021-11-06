@@ -98,8 +98,7 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    * ...
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+<img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Wireframe.jpg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
 
