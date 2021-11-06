@@ -100,10 +100,10 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    * Profile Tab
  * Home Screen
    * Details Screen
- * Search Screen
+ * Search Screen (Can Switch between following Screens)
    * Games Page
    * Reviews Page
- * Review Page
+ * Review Page (Can Switch between following Screens)
    * Parents Reviews
    * Kids Reviews
  * Profile Page
