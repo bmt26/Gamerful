@@ -79,7 +79,9 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 * Profile Page Screen
    * User will be able to see their posted reviews, edit profile, and logout.
 * Details Screen
-   * User will be able to see an indepth review of a game, as well as naviagte to ratings
+   * User will be able to see an indepth review of a game.
+* Post Comment Screen
+   * User will be able to create and post a comment on a specific game for other users to see.
 * Edit Profile Page Screen
    * User will be able to edit their profile.
 
