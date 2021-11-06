@@ -109,6 +109,8 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 <img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Digital3.PNG" width=600>
 
 ### [BONUS] Interactive Prototype
+<img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Prototype.gif" width=600>
+
 
 ## Schema 
 [This section will be completed in Unit 9]
