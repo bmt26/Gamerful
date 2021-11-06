@@ -8,7 +8,8 @@
 
 ## Overview
 ### Description
-Gamerful is a video game recommendation app that selects games based ESRB ratings and other input. Could potentially be used as a sharing app for those unfamilialar with games, or for parents to buy games for their children.
+
+Gamerful is a game recommendation and review app. This app gives you fast and easy access to details and add reviews of different variety of games. This app is also a great tool for any parents who wants to buy games for their children, as our platform provides reviews from perspective of both parents and children.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
