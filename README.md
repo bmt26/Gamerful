@@ -90,13 +90,29 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 
 **Flow Navigation** (Screen to Screen)
 
-* [list first screen here]
-   * [list screen navigation here]
-   * ...
-* [list second screen here]
-   * [list screen navigation here]
-   * ...
+* Login Screen
+   * Home Screen
+   * Signup Screen
+* Navigation Screen (Can Switch between following Screens)
+   * Home Screen
+   * Search Tab
+   * Reviews Tab
+   * Profile Tab
+ * Home Screen
+   * Details Screen
+ * Search Screen
+   * Games Page
+   * Reviews Page
+ * Review Page
+   * Parents Reviews
+   * Kids Reviews
+ * Profile Page
+   * Edit Profile page
+   * Login Screen (if logout)
+ * Details Page
+   * Post Review Page
 
+ 
 ## Wireframes
 <img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Wireframe.jpg" width=600>
 
