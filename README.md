@@ -68,16 +68,20 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    + Password
    + Category: Parent or Child
 * Home Page Screen
-   * User will be able to browse different through list of games.
-   * Different categories of games will be presented to the user based on the gaming platform.
+   * User will be able to browse through a list of different games.
+   * Different categories of games will be presented to the user based on the gaming platform, ESRB rating, and other criteria.
 * Search Page Screen
-   * User will be presented with different variety of game genres to choose from.
+   * User will be presented with a variety of game genres to choose from.
    * User will be able to search for a specific game or game review.
 * Review Page Screen
    * User will be able to see or post game review.
    * User will also have the option to choose between what parents say and what kids say about the game.
 * Profile Page Screen
-   * User will be able to edit his/her profile, see their posted reviews and logout.   
+   * User will be able to see their posted reviews, edit profile, and logout.
+* Details Screen
+   * User will be able to see an indepth review of a game, as well as naviagte to ratings
+* Edit Profile Page Screen
+   * User will be able to edit their profile.
 
 ### 3. Navigation
 
