@@ -144,6 +144,19 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 
 ## Schema 
 ### Models
+### User
+
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the user post (default field) |
+   | updatedAt     | DateTime | date when post is last updated (default field) |
+   | username      | String   | stores the username of the user |
+   | createdAt     | DateTime | date when post is created (default field) |
+   | password      | String   | stores the password of the user |
+   | role          | Boolean  | if true then user is signed in as a parent. If false then user is signed in as a child |
+   | profilePic    | File     | image that user uploads as their profile picture|
+
+
 #### Reviews
 
    | Property      | Type     | Description |
