@@ -165,7 +165,7 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    | updatedAt     | DateTime | date when post is last updated (default field) |
    | gameId        | String   | gameIds will to used to fetch game data from api |
    | comment       | String   | review of the game |
-   | starRating    | Number   | number of star rating that has been posted to a game |
+   | starRating    | Number   | number of star rating that user posted to a game |
    | user          | Pointer to User| app user (parent or child)
    | image         | File     | image that user posts (game images)|
    
