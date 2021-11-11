@@ -144,7 +144,7 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 
 ## Schema 
 ### Models
-### User
+#### User
 
    | Property      | Type     | Description |
    | ------------- | -------- | ------------|
@@ -155,7 +155,6 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    | password      | String   | stores the password of the user |
    | role          | Boolean  | if true then user is signed in as a parent. If false then user is signed in as a child |
    | profilePic    | File     | image that user uploads as their profile picture|
-
 
 #### Reviews
 
