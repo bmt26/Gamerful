@@ -143,9 +143,21 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 
 
 ## Schema 
-[This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+#### Reviews
+
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the user post (default field) |
+   | createdAt     | DateTime | date when post is created (default field) |
+   | updatedAt     | DateTime | date when post is last updated (default field) |
+   | gameId        | String   | gameIds will to used to fetch game data from api |
+   | comment       | String   | review of the game |
+   | starRating    | Number   | number of star rating that has been posted to a game |
+   | user          | Pointer to User| app user (parent or child)
+   | image         | File     | image that user posts (game images)|
+   
+   
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
