@@ -293,8 +293,23 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
                 }
         });
          ```
-	
-       
 
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+#### [OPTIONAL:] Existing API Endpoints
+##### RAWG Api
+
+- Base URL - [https://rawg.io/api](https://rawg.io/api)
+
+   | HTTP Verbs | Endpoint     | Description |
+   | ---------- | ------------ | ------------|
+   | `GET`      | /games/lists/recent-games   | gets list of top games this week |
+   | `GET`      | /games/lists/recent-games-future | gets list of top games upcoming week |
+   | `GET`      | /games/lists/main | gets top-rated games |
+   | `GET`      | /games/lists/popular   | gets all time popular games |
+   | `GET`      | /games?parent_platforms=1   | gets list of pc games |
+   | `GET`      | /games?parent_platforms=2   | gets list of PS games |
+   | `GET`      | /games?parent_platforms=3 | gets list of X Box games |
+   | `GET`      | /genres     | gets list of all available genres |
+   | `GET`      | /search?search={SEARCH_QUERY} | gets list of games besed on passed query |
+   | `GET`      | /games/{GAME_ID}     | get details of a specific game |
+   | `GET`      | /games/{GAME_ID}/stores     | get list of direct purchase link for a game |
+   
