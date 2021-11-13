@@ -171,6 +171,26 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    
    
 ### Networking
-- [Add list of network requests by screen ]
+#### List of network requests by screen
+   - Login screen
+      - (GET) query user form user table
+         
+   - Sign up screen
+      - (POST) add user to user table
+
+   - Edit user profile screen
+      - (POST) update user information on user tabel
+
+   - Add review screen
+      - (POST) add review to reviews table
+
+   - User page
+      - (GET) query all reviews posted by user
+
+   - Reviews page
+      - (GET) query all the reviews for a given game
+	
+       
+
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
