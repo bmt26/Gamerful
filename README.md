@@ -174,21 +174,125 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 #### List of network requests by screen
    - Login screen
       - (GET) query user form user table
+      	```java
+        ParseUser.logInBackground(username, password, new LogIncCallback() {
+		@Override
+		public void done(ParseUser user, ParseException e) {
+			if (e==null){
+			  //Save was done
+			}else{
+			  //Something went wrong
+			  Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+			}
+		}
+
+		});
+        ```
+	
          
    - Sign up screen
       - (POST) add user to user table
+        ```java
+        User user = new User();
+        user.setUsername(username);
+        user.setRole(role);
+        user.setPassword(password);
+
+        user.signUpInBackground(new SignUpCallback() {
+                @Override
+                public void done(ParseException e) {
+                        if (e == null) {
+                // Hooray! Let them use the app now.
+                        } else {
+                                // Sign up didn't succeed. Look at the ParseException
+                                // to figure out what went wrong
+                                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                }
+        });
+         ```
 
    - Edit user profile screen
       - (POST) update user information on user tabel
+        ```swift
+        ParseQuery<User> query = ParseQuery.getQuery(User.class);
+        query.whereEqualTo(User.KEY_USERNAME, ParseUser.getCurrentUser().getUsername());
+
+        query.findInBackground(new FindCallback<User>() {
+                @Override
+                public void done(List<User> user, ParseException e) {
+                        if (e == null) {
+                                // User profile updated
+                        }
+                        else {
+                                // Issue updateing user profile
+                        }
+                }
+        });
+         ```
 
    - Add review screen
       - (POST) add review to reviews table
+        ```java
+        Reviews review = new Review();
+
+        review.setUser(currentUser);
+        review.setGameId(gameId);
+        review.setStarRating(starRating);
+        review.setComment(comment);
+        review.setImage(image);
+
+        review.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                        if(e == null) {
+                                // review posted
+                        }
+                        else {
+                                // something went wrong
+                        }
+                }
+        });
+         ```
+        
 
    - User page
       - (GET) query all reviews posted by user
+        ```java
+        ParseQuery<Reviews> query = ParseQuery.getQuery(Reviews.class);
+        query.include(Reviews.KEY_USER);
+
+        query.findInBackground(new FindCallback<Post>() {
+                @Override
+                public void done(List<Reviews> review, ParseException e) {
+                        if(e == null) {
+                                // Got list of all user reviews
+                        }
+                        else {
+                                // Someting went worng
+                        }
+                }
+        });
+         ```
 
    - Reviews page
       - (GET) query all the reviews for a given game
+        ```java
+        ParseQuery<Reviews> query = ParseQuery.getQuery(Reviews.class);
+        query.whereEqualTo("gameId", gameId);
+
+        query.findInBackground(new FindCallback<Post>() {
+                @Override
+                public void done(List<Reviews> review, ParseException e) {
+                        if(e == null) {
+                                // Got list of all game reviews
+                        }
+                        else {
+                                // Someting went worng
+                        }
+                }
+        });
+         ```
 	
        
 
