@@ -143,10 +143,173 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 
 
 ## Schema 
-[This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+#### User
+
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the user post (default field) |
+   | updatedAt     | DateTime | date when post is last updated (default field) |
+   | username      | String   | stores the username of the user |
+   | createdAt     | DateTime | date when post is created (default field) |
+   | password      | String   | stores the password of the user |
+   | role          | Boolean  | if true then user is signed in as a parent. If false then user is signed in as a child |
+   | profilePic    | File     | image that user uploads as their profile picture|
+
+#### Reviews
+
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the user post (default field) |
+   | createdAt     | DateTime | date when post is created (default field) |
+   | updatedAt     | DateTime | date when post is last updated (default field) |
+   | gameId        | String   | gameIds will to used to fetch game data from api |
+   | comment       | String   | review of the game |
+   | starRating    | Number   | number of star rating that user posted to a game |
+   | user          | Pointer to User| app user (parent or child)
+   | image         | File     | image that user posts (game images)|
+   
+   
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+#### List of network requests by screen
+   - Login screen
+      - (GET) query user form user table
+      	```java
+        ParseUser.logInBackground(username, password, new LogIncCallback() {
+		@Override
+		public void done(ParseUser user, ParseException e) {
+			if (e==null){
+			  //Save was done
+			}else{
+			  //Something went wrong
+			  Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+			}
+		}
+
+		});
+        ```
+	
+         
+   - Sign up screen
+      - (POST) add user to user table
+        ```java
+        User user = new User();
+        user.setUsername(username);
+        user.setRole(role);
+        user.setPassword(password);
+
+        user.signUpInBackground(new SignUpCallback() {
+                @Override
+                public void done(ParseException e) {
+                        if (e == null) {
+                // Hooray! Let them use the app now.
+                        } else {
+                                // Sign up didn't succeed. Look at the ParseException
+                                // to figure out what went wrong
+                                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                }
+        });
+         ```
+
+   - Edit user profile screen
+      - (POST) update user information on user tabel
+        ```swift
+        ParseQuery<User> query = ParseQuery.getQuery(User.class);
+        query.whereEqualTo(User.KEY_USERNAME, ParseUser.getCurrentUser().getUsername());
+
+        query.findInBackground(new FindCallback<User>() {
+                @Override
+                public void done(List<User> user, ParseException e) {
+                        if (e == null) {
+                                // User profile updated
+                        }
+                        else {
+                                // Issue updateing user profile
+                        }
+                }
+        });
+         ```
+
+   - Add review screen
+      - (POST) add review to reviews table
+        ```java
+        Reviews review = new Review();
+
+        review.setUser(currentUser);
+        review.setGameId(gameId);
+        review.setStarRating(starRating);
+        review.setComment(comment);
+        review.setImage(image);
+
+        review.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                        if(e == null) {
+                                // review posted
+                        }
+                        else {
+                                // something went wrong
+                        }
+                }
+        });
+         ```
+        
+
+   - User page
+      - (GET) query all reviews posted by user
+        ```java
+        ParseQuery<Reviews> query = ParseQuery.getQuery(Reviews.class);
+        query.include(Reviews.KEY_USER);
+
+        query.findInBackground(new FindCallback<Post>() {
+                @Override
+                public void done(List<Reviews> review, ParseException e) {
+                        if(e == null) {
+                                // Got list of all user reviews
+                        }
+                        else {
+                                // Someting went worng
+                        }
+                }
+        });
+         ```
+
+   - Reviews page
+      - (GET) query all the reviews for a given game
+        ```java
+        ParseQuery<Reviews> query = ParseQuery.getQuery(Reviews.class);
+        query.whereEqualTo("gameId", gameId);
+
+        query.findInBackground(new FindCallback<Post>() {
+                @Override
+                public void done(List<Reviews> review, ParseException e) {
+                        if(e == null) {
+                                // Got list of all game reviews
+                        }
+                        else {
+                                // Someting went worng
+                        }
+                }
+        });
+         ```
+
+#### [OPTIONAL:] Existing API Endpoints
+##### RAWG Api
+
+- Base URL - [https://rawg.io/api](https://rawg.io/api)
+
+   | HTTP Verbs | Endpoint     | Description |
+   | ---------- | ------------ | ------------|
+   | `GET`      | /games/lists/recent-games   | gets list of top games this week |
+   | `GET`      | /games/lists/recent-games-future | gets list of top games upcoming week |
+   | `GET`      | /games/lists/main | gets top-rated games |
+   | `GET`      | /games/lists/popular   | gets all time popular games |
+   | `GET`      | /games?parent_platforms=1   | gets list of pc games |
+   | `GET`      | /games?parent_platforms=2   | gets list of PS games |
+   | `GET`      | /games?parent_platforms=3 | gets list of X Box games |
+   | `GET`      | /genres     | gets list of all available genres |
+   | `GET`      | /search?search={SEARCH_QUERY} | gets list of games besed on passed query |
+   | `GET`      | /games/{GAME_ID}     | get details of a specific game |
+   | `GET`      | /games/{GAME_ID}/stores     | get list of direct purchase link for a game |
+   
