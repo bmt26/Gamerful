@@ -20,6 +20,9 @@ import android.widget.Toast;
 
 import com.example.gamezone.MainActivity;
 import com.example.gamezone.R;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 
 public class LoginFragment extends Fragment {
@@ -51,6 +54,10 @@ public class LoginFragment extends Fragment {
 
         final FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
 
+        if(ParseUser.getCurrentUser() != null) {
+            goMainActivity();
+        }
+
         etUsername = view.findViewById(R.id.etUsername);
         etPassword = view.findViewById(R.id.etPassword);
 
@@ -61,6 +68,8 @@ public class LoginFragment extends Fragment {
                 Log.i(TAG, "onClick login button");
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
+
+                loginUser(username, password);
             }
         });
 
@@ -77,5 +86,21 @@ public class LoginFragment extends Fragment {
         Intent i = new Intent(getContext(), MainActivity.class);
         startActivity(i);
         ((AppCompatActivity) getContext()).finish();
+    }
+
+    private void loginUser(String username, String password) {
+        Log.i(TAG, "Attempting to login user " + username);
+
+        ParseUser.logInInBackground(username, password, new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException e) {
+                if(e != null) {
+                    Log.e(TAG, "Issue with login ", e);
+                    Toast.makeText(getContext(), "Invalid username or password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                goMainActivity();
+            }
+        });
     }
 }
