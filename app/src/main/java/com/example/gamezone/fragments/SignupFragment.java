@@ -156,7 +156,7 @@ public class SignupFragment extends Fragment {
                         @Override
                         public void done(ParseException e) {
                             if (e != null) {
-                                Toast.makeText(getContext(), "Error while saving!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Error while signing up!", Toast.LENGTH_SHORT).show();
                             }
                             goMainActivity();
                         }
