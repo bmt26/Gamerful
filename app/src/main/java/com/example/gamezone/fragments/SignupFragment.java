@@ -7,13 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,12 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.example.gamezone.MainActivity;
-import com.example.gamezone.models.User;
 import com.example.gamezone.R;
+import com.example.gamezone.models.User;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.SaveCallback;
@@ -53,6 +54,10 @@ public class SignupFragment extends Fragment {
     private String role;
     private String password;
     private String confirmPassword;
+
+    RadioGroup radioGroup;
+    RadioButton radioYes;
+    RadioButton radioNo;
 
     private File photoFile;
     private String photoFileName = "photo.jpg";
@@ -93,6 +98,46 @@ public class SignupFragment extends Fragment {
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+            }
+        });
+
+        view.findViewById(R.id.radioYes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Is the button now checked?
+                boolean checked = ((RadioButton) view).isChecked();
+
+                // Check which radio button was clicked
+                switch(view.getId()) {
+                    case R.id.radioYes:
+                        if (checked)
+                            Toast.makeText(getContext(), "Yes button was clicked",Toast.LENGTH_SHORT).show();
+                            break;
+                    case R.id.radioNo:
+                        if (checked)
+                            Toast.makeText(getContext(), "No button was clicked",Toast.LENGTH_SHORT).show();
+                            break;
+                }
+            }
+        });
+
+        view.findViewById(R.id.radioNo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Is the button now checked?
+                boolean checked = ((RadioButton) view).isChecked();
+
+                // Check which radio button was clicked
+                switch(view.getId()) {
+                    case R.id.radioYes:
+                        if (checked)
+                            Toast.makeText(getContext(), "Yes button was clicked",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.radioNo:
+                        if (checked)
+                            Toast.makeText(getContext(), "No button was clicked",Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         });
 
