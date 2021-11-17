@@ -47,6 +47,7 @@ public class SignupFragment extends Fragment {
     private EditText etAddUsername;
     private EditText etAddPassword;
     private EditText etConfirmPassword;
+    private RadioButton radioButton;
 
     private Bitmap selectedImage;
 
@@ -56,8 +57,6 @@ public class SignupFragment extends Fragment {
     private String confirmPassword;
 
     RadioGroup radioGroup;
-    RadioButton radioYes;
-    RadioButton radioNo;
 
     private File photoFile;
     private String photoFileName = "photo.jpg";
@@ -82,6 +81,7 @@ public class SignupFragment extends Fragment {
         etAddUsername = view.findViewById(R.id.etAddUsername);
         etAddPassword = view.findViewById(R.id.etAddPassword);
         etConfirmPassword = view.findViewById(R.id.etConfirmPassword);
+        radioGroup = view.findViewById(R.id.radioGroup);
 
         final FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
 
@@ -101,46 +101,6 @@ public class SignupFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.radioYes).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Is the button now checked?
-                boolean checked = ((RadioButton) view).isChecked();
-
-                // Check which radio button was clicked
-                switch(view.getId()) {
-                    case R.id.radioYes:
-                        if (checked)
-                            Toast.makeText(getContext(), "Yes button was clicked",Toast.LENGTH_SHORT).show();
-                            break;
-                    case R.id.radioNo:
-                        if (checked)
-                            Toast.makeText(getContext(), "No button was clicked",Toast.LENGTH_SHORT).show();
-                            break;
-                }
-            }
-        });
-
-        view.findViewById(R.id.radioNo).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Is the button now checked?
-                boolean checked = ((RadioButton) view).isChecked();
-
-                // Check which radio button was clicked
-                switch(view.getId()) {
-                    case R.id.radioYes:
-                        if (checked)
-                            Toast.makeText(getContext(), "Yes button was clicked",Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.radioNo:
-                        if (checked)
-                            Toast.makeText(getContext(), "No button was clicked",Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-        });
-
         view.findViewById(R.id.signupBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,8 +108,22 @@ public class SignupFragment extends Fragment {
                 password = etAddPassword.getText().toString();
                 confirmPassword = etConfirmPassword.getText().toString();
 
+                // get selected radio button from radioGroup
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                radioButton = view.findViewById(selectedId);
 
-                role = "Parent";
+                switch (radioButton.getText().toString()) {
+                    case "Yes":
+                        role = "Parent";
+                        break;
+
+                    case "No":
+                        role = "Child";
+                        break;
+                }
+
+                Toast.makeText(getContext(),
+                        radioButton.getText(), Toast.LENGTH_SHORT).show();
 
                 if(username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                     Toast.makeText(getContext(), "Please fill all the information", Toast.LENGTH_SHORT).show();
@@ -159,13 +133,13 @@ public class SignupFragment extends Fragment {
                     Toast.makeText(getContext(), "Your password does not match", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                addUser(username, role, password, fragmentManager);
+                 addUser(username, role, password);
             }
         });
 
     }
 
-    private void addUser(String username, String role, String password, FragmentManager fragmentManager) {
+    private void addUser(String username, String role, String password) {
 
         final ParseFile file = new ParseFile(photoFile);
 
