@@ -14,4 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/nunito</item>
     </style>
+    <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">#fff</item>
+    </style>
 </resources>
