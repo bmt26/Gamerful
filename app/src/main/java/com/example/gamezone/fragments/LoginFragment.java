@@ -72,7 +72,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.btnSignup).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new SignupFragment();

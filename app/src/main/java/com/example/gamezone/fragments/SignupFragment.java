@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -48,6 +49,7 @@ public class SignupFragment extends Fragment {
     private EditText etAddPassword;
     private EditText etConfirmPassword;
     private RadioButton radioButton;
+    private Button backButton;
 
     private Bitmap selectedImage;
 
@@ -82,6 +84,7 @@ public class SignupFragment extends Fragment {
         etAddPassword = view.findViewById(R.id.etAddPassword);
         etConfirmPassword = view.findViewById(R.id.etConfirmPassword);
         radioGroup = view.findViewById(R.id.radioGroup);
+        backButton = view.findViewById(R.id.backBtn);
 
         final FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
 
@@ -96,6 +99,13 @@ public class SignupFragment extends Fragment {
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentManager.popBackStack();
             }
         });
 
