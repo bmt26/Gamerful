@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_home"
+        android:icon="@android:drawable/editbox_dropdown_light_frame"
+        android:title=""
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title=""
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_review"
+        android:icon="@android:drawable/ic_dialog_email"
+        android:title=""
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/ic_default_figure"
+        android:title=""
+        app:showAsAction="always" />
+</menu>
