@@ -13,6 +13,7 @@ public class Reviews extends ParseObject {
     public static final String KEY_IMAGE = "image";
     public static final String KEY_COMMENT = "comment";
     public static final String KEY_GAME = "game";
+    public static final String KEY_CREATED_KEY = "createdAt";
 
     public ParseUser getUser() {
         return getParseUser(KEY_USER);
