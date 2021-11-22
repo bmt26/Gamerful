@@ -48,7 +48,7 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    - [ ] Game info (release date, publisher, user rating, ESRB rating, etc)
    - [ ] Direct link for where to buy the game?
    - [ ] User will be able to post a rating.
- - [X] Make an app logo.
+ - [X] Make an app logo / splash screen.
 
 
 **Optional Nice-to-have Stories**

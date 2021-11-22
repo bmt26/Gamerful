@@ -130,9 +130,6 @@ public class SignupFragment extends Fragment {
                         break;
                 }
 
-                Toast.makeText(getContext(),
-                        radioButton.getText(), Toast.LENGTH_SHORT).show();
-
                 if(username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                     Toast.makeText(getContext(), "Please fill all the information", Toast.LENGTH_SHORT).show();
                     return;
