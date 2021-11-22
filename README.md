@@ -313,3 +313,23 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    | `GET`      | /games/{GAME_ID}     | get details of a specific game |
    | `GET`      | /games/{GAME_ID}/stores     | get list of direct purchase link for a game |
    
+### Sprint 1
+
+**Required Must-have Stories**
+
+ - [X] User can sign up to create a new account using Parse authentication. User can add the following details:
+   - [X] Profile picture
+   - [X] Username
+   - [X] Password
+   - [X] Category: Parent or Child
+ - [X] User can log in and log out of his or her account.
+ - [X] The current signed in user is persisted across app restarts.
+ - [X] User will be able to see bottom navigation bar with following tabs:
+   - [X] Home
+   - [X] Search
+   - [X] Review page
+   - [X] Profile Page
+ - [X] Make an app logo / splash screen.
+
+<img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Sprint1-Walkthorugh.gif" width=350>
+   
