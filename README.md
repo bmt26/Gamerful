@@ -25,30 +25,30 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 
 **Required Must-have Stories**
 
- * User can sign up to create a new account using Parse authentication. User can add the following details:
-   + Profile picture
-   + Username
-   + Password
-   + Category: Parent or Child
- * User can log in and log out of his or her account.
- * The current signed in user is persisted across app restarts.
- * User will be able to see bottom navigation bar with following tabs:
-   + Home
-   + Search
-   + Review page
-   + Profile Page
- * In home page user will be able to browse different through list of games.
- * In search page user will be able to search for a specific game or game review.
- * On review page user will be able to see or post game review.
- * On profile page user will be able to edit his/her profile, see their posted reviews and logout.
- * User will be able to click on a game to see its details. Details page will include the following:
-   + Game related images
-   + Game title / description
-   + YouTube trailer
-   + Game info (release date, publisher, user rating, ESRB rating, etc)
-   + Direct link for where to buy the game?
-   + User will be able to post a rating.
- * Make an app logo.
+ - [X] User can sign up to create a new account using Parse authentication. User can add the following details:
+   - [X] Profile picture
+   - [X] Username
+   - [X] Password
+   - [X] Category: Parent or Child
+ - [X] User can log in and log out of his or her account.
+ - [X] The current signed in user is persisted across app restarts.
+ - [X] User will be able to see bottom navigation bar with following tabs:
+   - [X] Home
+   - [X] Search
+   - [X] Review page
+   - [X] Profile Page
+ - [ ] In home page user will be able to browse different through list of games.
+ - [ ] In search page user will be able to search for a specific game or game review.
+ - [ ] On review page user will be able to see or post game review.
+ - [ ] On profile page user will be able to edit his/her profile, see their posted reviews and logout.
+ - [ ] User will be able to click on a game to see its details. Details page will include the following:
+   - [ ] Game related images
+   - [ ] Game title / description
+   - [ ] YouTube trailer
+   - [ ] Game info (release date, publisher, user rating, ESRB rating, etc)
+   - [ ] Direct link for where to buy the game?
+   - [ ] User will be able to post a rating.
+ - [X] Make an app logo.
 
 
 **Optional Nice-to-have Stories**
