@@ -23,7 +23,7 @@
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/nunito_bold"
             android:text="Profile"
-            android:textSize="30sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -68,6 +68,25 @@
             app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvReviewsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/nunito_bold"
+        android:text="Posted Reviews"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clHeader" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@+id/tvReviewsTitle"
+         />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
