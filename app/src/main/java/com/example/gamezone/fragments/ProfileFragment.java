@@ -29,7 +29,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  */
 public class ProfileFragment extends Fragment {
 
-    public static final String TAG = "ProfileActivity";
+    public static final String TAG = "ProfileFragment";
 
     private TextView tvUsername;
     private ImageView ivProfilePicture;

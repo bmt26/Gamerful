@@ -38,7 +38,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/ivAddPicture"
+            android:id="@+id/ivNewPicture"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginStart="30dp"
@@ -74,11 +74,11 @@
             android:layout_marginEnd="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivAddPicture"
+            app:layout_constraintTop_toBottomOf="@+id/ivNewPicture"
             app:startIconDrawable="@drawable/ic_login_user_icon">
 
             <EditText
-                android:id="@+id/etAddUsername"
+                android:id="@+id/etNewUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -86,7 +86,7 @@
                 android:hint="User Name"
                 android:inputType="textPersonName"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivAddPicture"
+                app:layout_constraintTop_toBottomOf="@+id/ivNewPicture"
                 tools:ignore="SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,12 +105,12 @@
             app:startIconDrawable="@drawable/ic_login_lock_icon">
 
             <EditText
-                android:id="@+id/etAddPassword"
+                android:id="@+id/etOldPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="Password"
+                android:hint="Current Password"
                 android:inputType="textPassword"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tiUsername" />
@@ -131,12 +131,12 @@
             app:startIconDrawable="@drawable/ic_login_lock_icon">
 
             <EditText
-                android:id="@+id/etConfirmPassword"
+                android:id="@+id/etNewPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="Confirm password"
+                android:hint="New password"
                 android:inputType="textPassword"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tiPassword" />
