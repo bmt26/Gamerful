@@ -13,10 +13,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.gamezone.LoginActivity;
 import com.example.gamezone.R;
+import com.example.gamezone.models.User;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,8 +31,11 @@ public class ProfileFragment extends Fragment {
 
     public static final String TAG = "ProfileActivity";
 
+    private TextView tvUsername;
+    private ImageView ivProfilePicture;
     private Button btnEditProfile;
     private Button btnLogout;
+    private User user;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -42,8 +51,25 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        user = (User) User.getCurrentUser();
+        tvUsername = view.findViewById(R.id.tvUsername);
+        ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
         btnLogout = view.findViewById(R.id.btnLogout);
+
+        tvUsername.setText(user.getUsername());
+
+        ParseFile image = user.getProfileImage();
+        if (image != null) {
+            int radius = 200; // corner radius, higher value = more rounded
+            int margin = 0; // crop margin, set to 0 for corners with no crop
+            Glide.with(getContext())
+                    .load(image.getUrl())
+                    .circleCrop() // scale image to fill the entire ImageView
+                    .transform(new RoundedCornersTransformation(radius, margin))
+                    .into(ivProfilePicture);
+        }
+        //ivProfilePicture.
 
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
