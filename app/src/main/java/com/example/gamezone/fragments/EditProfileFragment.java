@@ -40,18 +40,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 
 // TODO: Repurpose Signup to EditProfile
 public class EditProfileFragment extends Fragment {
 
     private final String TAG = "EditProfileFragment";
+
+    private User user;
     private static final int RESULT_LOAD_IMG = 402;
     private ImageView ivNewPicture;
     private EditText etNewUsername;
     private EditText etOldPassword;
     private EditText etNewPassword;
     private RadioButton radioButton;
-    private Button backButton;
+    private Button btnBack;
+    private Button btnSave;
 
     private Bitmap selectedImage;
 
@@ -69,10 +74,6 @@ public class EditProfileFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,18 +84,32 @@ public class EditProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
+        user = (User) User.getCurrentUser();
         ivNewPicture = view.findViewById(R.id.ivAddPicture);
         etNewUsername = view.findViewById(R.id.etAddUsername);
         etOldPassword = view.findViewById(R.id.etAddPassword);
         etNewPassword = view.findViewById(R.id.etConfirmPassword);
         radioGroup = view.findViewById(R.id.radioGroup);
-        backButton = view.findViewById(R.id.backBtn);
+        btnBack = view.findViewById(R.id.btnBack);
+        btnSave = view.findViewById(R.id.btnSave);
 
-        Glide.with(getContext())
-                .load(R.drawable.ic_default_figure)
-                .into(ivNewPicture);
+        etNewUsername.setText(user.getUsername());
+
+        ParseFile image = user.getProfileImage();
+        if (image != null) {
+            int radius = 200; // corner radius, higher value = more rounded
+            int margin = 0; // crop margin, set to 0 for corners with no crop
+            Glide.with(getContext())
+                    .load(image.getUrl())
+                    .circleCrop() // scale image to fill the entire ImageView
+                    .transform(new RoundedCornersTransformation(radius, margin))
+                    .into(ivNewPicture);
+        }
+        else {
+            Glide.with(getContext())
+                    .load(R.drawable.ic_default_figure)
+                    .into(ivNewPicture);
+        }
 
         ivNewPicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,15 +121,14 @@ public class EditProfileFragment extends Fragment {
             }
         });
 
-
-        backButton.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getParentFragmentManager().popBackStack();
             }
         });
 
-        view.findViewById(R.id.signupBtn).setOnClickListener(new View.OnClickListener() {
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 username = etNewUsername.getText().toString();

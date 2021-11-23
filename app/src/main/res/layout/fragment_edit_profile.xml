@@ -8,7 +8,7 @@
     tools:context=".fragments.SignupFragment">
 
     <Button
-        android:id="@+id/backBtn"
+        android:id="@+id/btnBack"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
@@ -54,8 +54,8 @@
             android:layout_marginBottom="7dp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="50dp"
-            app:layout_constraintBottom_toBottomOf="@+id/ivAddPicture"
-            app:layout_constraintEnd_toEndOf="@+id/ivAddPicture">
+            app:layout_constraintBottom_toBottomOf="@+id/ivNewPicture"
+            app:layout_constraintEnd_toEndOf="@+id/ivNewPicture">
 
             <TextView
                 android:layout_width="match_parent"
@@ -179,7 +179,7 @@
         </RadioGroup>
 
         <Button
-            android:id="@+id/signupBtn"
+            android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

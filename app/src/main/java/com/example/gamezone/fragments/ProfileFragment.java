@@ -31,11 +31,11 @@ public class ProfileFragment extends Fragment {
 
     public static final String TAG = "ProfileFragment";
 
+    private User user;
     private TextView tvUsername;
     private ImageView ivProfilePicture;
     private Button btnEditProfile;
     private Button btnLogout;
-    private User user;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -69,7 +69,11 @@ public class ProfileFragment extends Fragment {
                     .transform(new RoundedCornersTransformation(radius, margin))
                     .into(ivProfilePicture);
         }
-        //ivProfilePicture.
+        else {
+            Glide.with(getContext())
+                    .load(R.drawable.ic_default_figure)
+                    .into(ivProfilePicture);
+        }
 
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
