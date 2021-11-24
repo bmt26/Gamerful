@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
     public static final String API_KEY = BuildConfig.RAWG_KEY;
     public static final String RECENT_GAME = "https://rawg.io/api/games/lists/recent-games";
 
-    List<Games> games;
+    List<Games> topGames;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
                     Log.i(TAG, "Results: " + results);
-                    games = Games.fromJsonArray(results);
+                    topGames = Games.fromJsonArray(results);
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit JSON exception", e);
                     e.printStackTrace();

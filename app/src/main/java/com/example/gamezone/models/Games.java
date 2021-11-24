@@ -13,6 +13,7 @@ public class Games {
     String name;
     int id;
     double rating;
+    List<String> genres;
 
 
     public Games(JSONObject jsonObject) throws JSONException {
@@ -20,6 +21,7 @@ public class Games {
         id = jsonObject.getInt("id");
         name = jsonObject.getString("name");
         rating = jsonObject.getDouble("rating");
+        genres = genreList(jsonObject.getJSONArray("genres"));
     }
 
     public static List<Games> fromJsonArray(JSONArray resentsJsonArray) throws JSONException {
@@ -28,6 +30,14 @@ public class Games {
             resents.add(new Games(resentsJsonArray.getJSONObject(i)));
         }
         return resents;
+    }
+
+    public static List<String> genreList(JSONArray list) throws JSONException {
+        List<String> genres = new ArrayList<>();
+        for(int i = 0; i < list.length(); i++) {
+            genres.add(list.getJSONObject(i).getString("name"));
+        }
+        return genres;
     }
 
     public String getBackgroundImage() {
@@ -44,5 +54,9 @@ public class Games {
 
     public double getRating() {
         return rating;
+    }
+
+    public List<String> getGenres() {
+        return genres;
     }
 }
