@@ -44,12 +44,13 @@ public class HomeFragment extends Fragment {
     public static final String API_KEY = BuildConfig.RAWG_KEY;
     public static final String RECENT_GAME = "https://rawg.io/api/games/lists/recent-games?discover=true&ordering=-relevance&page_size=10&key=" + API_KEY;
     public static final String UPCOMING_GAMES = "https://rawg.io/api/games/lists/recent-games-future?discover=true&ordering=-added&page_size=20&page=1&key=" + API_KEY;
-    public static final String TOP_RATED = "https://rawg.io/api/games/lists/main??discover=true&ordering=-relevance&page_size=20&page=1&key=" + API_KEY;
+    public static final String GAMES_LAST_MONTH = "https://rawg.io/api/games/lists/recent-games-past?discover=true&ordering=-added&page_size=20&page=1&key=" + API_KEY;
+    public static final String TOP_RATED = "https://rawg.io/api/games/lists/main?discover=true&ordering=-relevance&page_size=20&page=1&key=" + API_KEY;
     public static final String TOP_THIS_YEAR = "https://rawg.io/api/games/lists/greatest?discover=true&ordering=-added&page_size=20&page=1&key=" + API_KEY;
     public static final String ALL_TIME_POPULAR = "https://rawg.io/api/games/lists/popular??discover=true&&page_size=20&page=1&key=" + API_KEY;
-    public static final String PC_GAMES = "https://rawg.io/api/games?parent_platforms=1&page=1&page_size=20&filter=true&comments=true&key=" + API_KEY;
-    public static final String PS_GAMES = "https://rawg.io/api/games?parent_platforms=2&page=1&page_size=20&filter=true&comments=true&key=" + API_KEY;
-    public static final String XBOX_GAMES = "https://rawg.io/api/games?parent_platforms=3&page=1&page_size=20&filter=true&comments=true&key=" + API_KEY;
+    public static final String PC_GAMES = "https://rawg.io/api/games?parent_platforms=1&ordering=-rating&page=1&page_size=20&filter=true&comments=true&key=" + API_KEY;
+    public static final String PS_GAMES = "https://rawg.io/api/games?parent_platforms=2&ordering=-rating&page=1&page_size=20&filter=true&comments=true&key=" + API_KEY;
+    public static final String XBOX_GAMES = "https://rawg.io/api/games?parent_platforms=3&ordering=-rating&page=1&page_size=20&filter=true&comments=true&key=" + API_KEY;
     public static final String ANDROID_GAMES = "https://rawg.io/api/games?parent_platforms=8&page=1&page_size=20&filter=true&comments=true&key=" + API_KEY;
     public static final String IOS_GAMES = "https://rawg.io/api/games?parent_platforms=4&page=1&page_size=20&filter=true&comments=true&key=" + API_KEY;
 
@@ -131,35 +132,98 @@ public class HomeFragment extends Fragment {
 
 
         // Top games this month
-        makeRequest(RECENT_GAME, thisMonth, slideAdapter);
+
+        LinearLayoutManager topMonthManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView rvTopMonth = view.findViewById(R.id.rvTopMonth);
+        rvTopMonth.setLayoutManager(topMonthManager);
+        GamesAdapter gamesAdapter2 = new GamesAdapter(getContext(), thisMonth);
+        rvTopMonth.setAdapter(gamesAdapter2);
+
+        makeGameRequest(GAMES_LAST_MONTH, thisMonth, gamesAdapter2);
 
         // Top games this year
-        makeRequest(TOP_THIS_YEAR, thisYear, slideAdapter);
+
+        LinearLayoutManager topYearManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView rvTopYear = view.findViewById(R.id.rvTopYear);
+        rvTopYear.setLayoutManager(topYearManager);
+        GamesAdapter gamesAdapter3 = new GamesAdapter(getContext(), thisYear);
+        rvTopYear.setAdapter(gamesAdapter3);
+
+        makeGameRequest(TOP_THIS_YEAR, thisYear, gamesAdapter3);
 
 
         // All Time greatest
-        makeRequest(ALL_TIME_POPULAR, allTimePopular, slideAdapter);
+
+        LinearLayoutManager allGreatestManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView rvGreatest = view.findViewById(R.id.rvGreatest);
+        rvGreatest.setLayoutManager(allGreatestManager);
+        GamesAdapter gamesAdapter4 = new GamesAdapter(getContext(), allTimePopular);
+        rvGreatest.setAdapter(gamesAdapter4);
+
+        makeGameRequest(ALL_TIME_POPULAR, allTimePopular, gamesAdapter4);
 
         // Upcoming games
-        makeRequest(UPCOMING_GAMES, upcomingGames, slideAdapter);
+
+        LinearLayoutManager upcomingManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView rvUpcoming = view.findViewById(R.id.rvUpcoming);
+        rvUpcoming.setLayoutManager(upcomingManager);
+        GamesAdapter gamesAdapter5 = new GamesAdapter(getContext(), upcomingGames);
+        rvUpcoming.setAdapter(gamesAdapter5);
+
+        makeGameRequest(UPCOMING_GAMES, upcomingGames, gamesAdapter5);
 
         // PC
-        makeRequest(PC_GAMES, PC, slideAdapter);
+
+        LinearLayoutManager pcGameManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView rvPcGames = view.findViewById(R.id.rvPcGames);
+        rvPcGames.setLayoutManager(pcGameManager);
+        GamesAdapter gamesAdapter6 = new GamesAdapter(getContext(), PC);
+        rvPcGames.setAdapter(gamesAdapter6);
+
+        makeGameRequest(PC_GAMES, PC, gamesAdapter6);
 
 
         // PS
-        makeRequest(PS_GAMES, PS, slideAdapter);
+
+        LinearLayoutManager psGameManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView rvPsGames = view.findViewById(R.id.rvPsGames);
+        rvPsGames.setLayoutManager(psGameManager);
+        GamesAdapter gamesAdapter7 = new GamesAdapter(getContext(), PS);
+        rvPsGames.setAdapter(gamesAdapter7);
+
+        makeGameRequest(PS_GAMES, PS, gamesAdapter7);
 
 
         // xBox
-        makeRequest(XBOX_GAMES, xBox, slideAdapter);
+
+        LinearLayoutManager xBoxGameManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView rvXBoxGames = view.findViewById(R.id.rvXBoxGames);
+        rvXBoxGames.setLayoutManager(xBoxGameManager);
+        GamesAdapter gamesAdapter8 = new GamesAdapter(getContext(), xBox);
+        rvXBoxGames.setAdapter(gamesAdapter8);
+
+        makeGameRequest(XBOX_GAMES, xBox, gamesAdapter8);
 
 
         // Android
-        makeRequest(ANDROID_GAMES, android, slideAdapter);
+
+        LinearLayoutManager androidGameManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView rvAndroidGames = view.findViewById(R.id.rvAndroidGames);
+        rvAndroidGames.setLayoutManager(androidGameManager);
+        GamesAdapter gamesAdapter9 = new GamesAdapter(getContext(), android);
+        rvAndroidGames.setAdapter(gamesAdapter9);
+
+        makeGameRequest(ANDROID_GAMES, android, gamesAdapter9);
 
         // IOS
-        makeRequest(IOS_GAMES, ios, slideAdapter);
+
+        LinearLayoutManager iosGameManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView rvIosGames = view.findViewById(R.id.rvIosGames);
+        rvIosGames.setLayoutManager(iosGameManager);
+        GamesAdapter gamesAdapter10 = new GamesAdapter(getContext(), ios);
+        rvIosGames.setAdapter(gamesAdapter10);
+
+        makeGameRequest(IOS_GAMES, ios, gamesAdapter10);
     }
 
     // Make rawg api get request
