@@ -99,7 +99,11 @@ public class DetailsFragment extends Fragment {
                     publisher = getPublishers(jsonObject.getJSONArray("publishers"));
                     genres = getGenres(jsonObject.getJSONArray("genres"));
                     playTime = jsonObject.getInt("playtime");
-                    metacritic = jsonObject.getInt("metacritic");
+                    try {
+                        metacritic = jsonObject.getInt("metacritic");
+                    } catch (JSONException e) {
+                        metacritic = 0;
+                    }
 
                     // Gets object list of stores
                     client.get(store_url, new JsonHttpResponseHandler() {
