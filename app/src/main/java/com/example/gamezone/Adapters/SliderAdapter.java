@@ -64,6 +64,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.MyViewHold
             Glide.with(context)
                     .load(game.getBackgroundImage())
                     .centerCrop()
+                    .placeholder(R.drawable.placeholder)
                     .into(ivPoster);
 
             ivPoster.setOnClickListener(new View.OnClickListener() {

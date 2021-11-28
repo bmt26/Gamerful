@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import okhttp3.Headers;
@@ -117,128 +118,48 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        client.get(RECENT_GAME, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "Results: " + results);
-                    topGames.addAll(Games.fromJsonArray(results));
-                    slideAdapter.notifyDataSetChanged();
-                    Log.d(TAG, "Top games: " + topGames.get(0).getName());
-                } catch (JSONException e) {
-                    Log.e(TAG, "Hit JSON exception", e);
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "onFailure");
-            }
-        });
+        makeRequest(RECENT_GAME, topGames, slideAdapter);
 
         // Top Rated
+        makeRequest(TOP_RATED, topRated, slideAdapter);
 
-        client.get(TOP_RATED, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "Top Rated: " + results);
-                    topRated = Games.fromJsonArray(results);
-                    Log.d(TAG, "Top Rated: " + topRated.get(0).getName());
-                } catch (JSONException e) {
-                    Log.e(TAG, "Hit JSON exception", e);
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "onFailure");
-            }
-        });
 
         // Top games this month
-
-        client.get(RECENT_GAME, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "Top games this month: " + results);
-                    thisMonth = Games.fromJsonArray(results);
-                    Log.d(TAG, "Top games this month: " + thisMonth.get(0).getName());
-                } catch (JSONException e) {
-                    Log.e(TAG, "Hit JSON exception", e);
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "onFailure");
-            }
-        });
+        makeRequest(RECENT_GAME, thisMonth, slideAdapter);
 
         // Top games this year
+        makeRequest(TOP_THIS_YEAR, thisYear, slideAdapter);
 
-        client.get(TOP_THIS_YEAR, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "Top games this year: " + results);
-                    thisYear = Games.fromJsonArray(results);
-                    Log.d(TAG, "Top games this year: " + thisYear.get(0).getName());
-                } catch (JSONException e) {
-                    Log.e(TAG, "Hit JSON exception", e);
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "onFailure");
-            }
-        });
 
         // All Time greatest
-
-        client.get(ALL_TIME_POPULAR, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "All Time greatest: " + results);
-                    allTimePopular = Games.fromJsonArray(results);
-                    Log.d(TAG, "All Time greatest: " + allTimePopular.get(0).getName());
-                } catch (JSONException e) {
-                    Log.e(TAG, "Hit JSON exception", e);
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "onFailure");
-            }
-        });
+        makeRequest(ALL_TIME_POPULAR, allTimePopular, slideAdapter);
 
         // Upcoming games
+        makeRequest(UPCOMING_GAMES, upcomingGames, slideAdapter);
 
-        client.get(UPCOMING_GAMES, new JsonHttpResponseHandler() {
+        // PC
+        makeRequest(PC_GAMES, PC, slideAdapter);
+
+
+        // PS
+        makeRequest(PS_GAMES, PS, slideAdapter);
+
+
+        // xBox
+        makeRequest(XBOX_GAMES, xBox, slideAdapter);
+
+
+        // Android
+        makeRequest(ANDROID_GAMES, android, slideAdapter);
+
+        // IOS
+        makeRequest(IOS_GAMES, ios, slideAdapter);
+    }
+
+    // Make rawg api get request
+    private void makeRequest(String url, List<Games> games, SliderAdapter adapter) {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(url, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.d(TAG, "onSuccess");
@@ -246,128 +167,9 @@ public class HomeFragment extends Fragment {
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
                     Log.i(TAG, "Results: " + results);
-                    upcomingGames = Games.fromJsonArray(results);
-                    Log.d(TAG, "Upcoming games: " + upcomingGames.get(0).getName());
-                } catch (JSONException e) {
-                    Log.e(TAG, "Hit JSON exception", e);
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "onFailure");
-            }
-        });
-
-        // PC
-
-        client.get(PC_GAMES, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "PC: " + results);
-                    PC = Games.fromJsonArray(results);
-                    Log.d(TAG, "PC: " + PC.get(0).getName());
-                } catch (JSONException e) {
-                    Log.e(TAG, "Hit JSON exception", e);
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "onFailure");
-            }
-        });
-
-        // PS
-
-        client.get(PS_GAMES, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "PS: " + results);
-                    PS = Games.fromJsonArray(results);
-                    Log.d(TAG, "PS: " + PS.get(0).getName());
-                } catch (JSONException e) {
-                    Log.e(TAG, "Hit JSON exception", e);
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "onFailure");
-            }
-        });
-
-        // xBox
-
-        client.get(XBOX_GAMES, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "xBox: " + results);
-                    xBox = Games.fromJsonArray(results);
-                    Log.d(TAG, "xBox: " + xBox.get(0).getName());
-                } catch (JSONException e) {
-                    Log.e(TAG, "Hit JSON exception", e);
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "onFailure");
-            }
-        });
-
-        // Android
-
-        client.get(ANDROID_GAMES, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "Android: " + results);
-                    android = Games.fromJsonArray(results);
-                    Log.d(TAG, "Android: " + android.get(0).getName());
-                } catch (JSONException e) {
-                    Log.e(TAG, "Hit JSON exception", e);
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "onFailure");
-            }
-        });
-
-        // IOS
-
-        client.get(IOS_GAMES, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "IOS: " + results);
-                    ios = Games.fromJsonArray(results);
-                    Log.d(TAG, "IOS: " + ios.get(0).getName());
+                    games.addAll(Games.fromJsonArray(results));
+                    adapter.notifyDataSetChanged();
+                    Log.d(TAG, "games: " + games.get(0).getName());
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit JSON exception", e);
                     e.printStackTrace();
