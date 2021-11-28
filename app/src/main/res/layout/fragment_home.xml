@@ -20,11 +20,19 @@
             android:elevation="0dp"
             app:layout_scrollFlags="scroll|enterAlways">
 
-            <ImageView
+            <TextView
+                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/appbar_icon" />
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:letterSpacing="1"
+                android:text="GAMERFUL"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:drawableStartCompat="@drawable/ic_appbar_logo" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
