@@ -86,8 +86,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        AsyncHttpClient client = new AsyncHttpClient();
-
         topGames = new ArrayList<>();
         upcomingGames = new ArrayList<>();
         topRated = new ArrayList<>();
@@ -122,6 +120,7 @@ public class HomeFragment extends Fragment {
 
         // Top Rated
 
+        // Create a new instance of adapter and set it to the recyclerview
         LinearLayoutManager topRatedManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = view.findViewById(R.id.rvTopGames);
         recyclerView.setLayoutManager(topRatedManager);
@@ -133,6 +132,7 @@ public class HomeFragment extends Fragment {
 
         // Top games this month
 
+        // Create a new instance of adapter and set it to the recyclerview
         LinearLayoutManager topMonthManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView rvTopMonth = view.findViewById(R.id.rvTopMonth);
         rvTopMonth.setLayoutManager(topMonthManager);
@@ -143,6 +143,7 @@ public class HomeFragment extends Fragment {
 
         // Top games this year
 
+        // Create a new instance of adapter and set it to the recyclerview
         LinearLayoutManager topYearManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView rvTopYear = view.findViewById(R.id.rvTopYear);
         rvTopYear.setLayoutManager(topYearManager);
@@ -154,6 +155,7 @@ public class HomeFragment extends Fragment {
 
         // All Time greatest
 
+        // Create a new instance of adapter and set it to the recyclerview
         LinearLayoutManager allGreatestManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView rvGreatest = view.findViewById(R.id.rvGreatest);
         rvGreatest.setLayoutManager(allGreatestManager);
@@ -164,6 +166,7 @@ public class HomeFragment extends Fragment {
 
         // Upcoming games
 
+        // Create a new instance of adapter and set it to the recyclerview
         LinearLayoutManager upcomingManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView rvUpcoming = view.findViewById(R.id.rvUpcoming);
         rvUpcoming.setLayoutManager(upcomingManager);
@@ -174,6 +177,7 @@ public class HomeFragment extends Fragment {
 
         // PC
 
+        // Create a new instance of adapter and set it to the recyclerview
         LinearLayoutManager pcGameManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView rvPcGames = view.findViewById(R.id.rvPcGames);
         rvPcGames.setLayoutManager(pcGameManager);
@@ -185,6 +189,7 @@ public class HomeFragment extends Fragment {
 
         // PS
 
+        // Create a new instance of adapter and set it to the recyclerview
         LinearLayoutManager psGameManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView rvPsGames = view.findViewById(R.id.rvPsGames);
         rvPsGames.setLayoutManager(psGameManager);
@@ -196,6 +201,7 @@ public class HomeFragment extends Fragment {
 
         // xBox
 
+        // Create a new instance of adapter and set it to the recyclerview
         LinearLayoutManager xBoxGameManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView rvXBoxGames = view.findViewById(R.id.rvXBoxGames);
         rvXBoxGames.setLayoutManager(xBoxGameManager);
@@ -207,6 +213,7 @@ public class HomeFragment extends Fragment {
 
         // Android
 
+        // Create a new instance of adapter and set it to the recyclerview
         LinearLayoutManager androidGameManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView rvAndroidGames = view.findViewById(R.id.rvAndroidGames);
         rvAndroidGames.setLayoutManager(androidGameManager);
@@ -217,6 +224,7 @@ public class HomeFragment extends Fragment {
 
         // IOS
 
+        // Create a new instance of adapter and set it to the recyclerview
         LinearLayoutManager iosGameManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView rvIosGames = view.findViewById(R.id.rvIosGames);
         rvIosGames.setLayoutManager(iosGameManager);
@@ -226,7 +234,7 @@ public class HomeFragment extends Fragment {
         makeGameRequest(IOS_GAMES, ios, gamesAdapter10);
     }
 
-    // Make rawg api get request
+    // Make rawg api get request for coracle
     private void makeRequest(String url, List<Games> games, SliderAdapter adapter) {
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, new JsonHttpResponseHandler() {
@@ -253,6 +261,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    // Makes API requests for horizontal recycle view
     private void makeGameRequest(String url, List<Games> games, GamesAdapter adapter) {
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, new JsonHttpResponseHandler() {
