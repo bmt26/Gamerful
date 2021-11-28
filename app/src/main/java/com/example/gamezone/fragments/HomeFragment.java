@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.text.Html;
@@ -17,9 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
-import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.gamezone.Adapters.SliderAdapter;
+import com.example.gamezone.Adapters.GamesAdapter;
 import com.example.gamezone.BuildConfig;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Games;
@@ -27,10 +29,8 @@ import com.example.gamezone.models.Games;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import okhttp3.Headers;
@@ -112,7 +112,6 @@ public class HomeFragment extends Fragment {
         pager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.d(TAG, "position" + position);
                 selectedIndicator(position);
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
             }
@@ -121,7 +120,14 @@ public class HomeFragment extends Fragment {
         makeRequest(RECENT_GAME, topGames, slideAdapter);
 
         // Top Rated
-        makeRequest(TOP_RATED, topRated, slideAdapter);
+
+        LinearLayoutManager topRatedManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView recyclerView = view.findViewById(R.id.rvTopGames);
+        recyclerView.setLayoutManager(topRatedManager);
+        GamesAdapter gamesAdapter = new GamesAdapter(getContext(), topRated);
+        recyclerView.setAdapter(gamesAdapter);
+
+        makeGameRequest(TOP_RATED, topRated, gamesAdapter);
 
 
         // Top games this month
@@ -170,6 +176,32 @@ public class HomeFragment extends Fragment {
                     games.addAll(Games.fromJsonArray(results));
                     adapter.notifyDataSetChanged();
                     Log.d(TAG, "games: " + games.get(0).getName());
+                } catch (JSONException e) {
+                    Log.e(TAG, "Hit JSON exception", e);
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.d(TAG, "onFailure");
+            }
+        });
+    }
+
+    private void makeGameRequest(String url, List<Games> games, GamesAdapter adapter) {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(url, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                Log.d(TAG, "onSuccess");
+                JSONObject jsonObject = json.jsonObject;
+                try {
+                    JSONArray results = jsonObject.getJSONArray("results");
+                    Log.i(TAG, "Results: " + results);
+                    games.addAll(Games.fromJsonArray(results));
+                    adapter.notifyDataSetChanged();
+                    Log.d(TAG, "games-1: " + games.get(0).getName());
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit JSON exception", e);
                     e.printStackTrace();

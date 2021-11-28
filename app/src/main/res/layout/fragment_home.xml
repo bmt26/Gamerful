@@ -32,6 +32,12 @@
                 android:orientation="horizontal" />
 
         </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/rvTopGames"></androidx.recyclerview.widget.RecyclerView>
         
     </LinearLayout>
 </ScrollView>
