@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,16 +18,38 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.gamezone.BuildConfig;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Games;
+import com.example.gamezone.models.Screenshots;
+import com.example.gamezone.models.Stores;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Headers;
 
 public class DetailsFragment extends Fragment {
 
     TextView tvId;
+
+    String name;
+    String genres;
+    String esrbRating;
+    String poster;
+    String description;
+    String releaseDate;
+    String publisher;
+
+    int reviewCount;
+    int playTime;
+    int metacritic;
+    double ratings;
+
+    List<Screenshots> screenshots;
+    List<Stores> stores;
+
 
     public static final String TAG = "DetailsFragment";
     public static final String API_KEY = BuildConfig.RAWG_KEY;
@@ -47,12 +70,16 @@ public class DetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         tvId = view.findViewById(R.id.tvId);
 
+        screenshots = new ArrayList<>();
+        stores = new ArrayList<>();
+
         Bundle bundle = this.getArguments();
         int gameId = bundle.getInt("Id");
         tvId.setText(String.valueOf(gameId));
 
         String details_url = BASE_URL + String.valueOf(gameId) + "?key=" + API_KEY;
         String store_url = BASE_URL + String.valueOf(gameId) + "/stores?key=" + API_KEY;
+        String screenshots_url = BASE_URL + String.valueOf(gameId) + "/screenshots?key=" + API_KEY;
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(details_url, new JsonHttpResponseHandler() {
@@ -61,6 +88,45 @@ public class DetailsFragment extends Fragment {
                 Log.d(TAG, "onSuccess");
                 JSONObject jsonObject = json.jsonObject;
                 Log.i(TAG, "Results: " + jsonObject);
+                try {
+                    name = jsonObject.getString("name");
+                    poster = jsonObject.getString("background_image");
+                    ratings = jsonObject.getDouble("rating");
+                    reviewCount = jsonObject.getInt("ratings_count");
+                    esrbRating = jsonObject.getString("esrb_rating");
+                    description = jsonObject.getString("description_raw");
+                    releaseDate = jsonObject.getString("released");
+                    publisher = getPublishers(jsonObject.getJSONArray("publishers"));
+                    genres = getGenres(jsonObject.getJSONArray("genres"));
+                    playTime = jsonObject.getInt("playtime");
+                    metacritic = jsonObject.getInt("metacritic");
+
+                    // Gets object list of stores
+                    client.get(store_url, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Headers headers, JSON json) {
+                            Log.d(TAG, "onSuccess");
+                            JSONObject jsonObjectStore = json.jsonObject;
+                            try {
+                                JSONArray results = jsonObjectStore.getJSONArray("results");
+                                JSONArray store_list = jsonObject.getJSONArray("stores");
+                                stores.addAll(Stores.fromJsonArray(results, store_list));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            Log.i(TAG, "Results: " + stores.get(0).store_name + " : " + stores.get(0).store_url);
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                            Log.d(TAG, "onFailure");
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -69,12 +135,16 @@ public class DetailsFragment extends Fragment {
             }
         });
 
-        client.get(store_url, new JsonHttpResponseHandler() {
+        client.get(screenshots_url, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
                 JSONObject jsonObject = json.jsonObject;
-                Log.i(TAG, "Results: " + jsonObject);
+                try {
+                    JSONArray results = jsonObject.getJSONArray("results");
+                    screenshots.addAll(Screenshots.fromJsonArray(results));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -82,5 +152,24 @@ public class DetailsFragment extends Fragment {
                 Log.d(TAG, "onFailure");
             }
         });
+    }
+
+    private String getGenres(JSONArray genres) throws JSONException {
+        List<String> genreList = new ArrayList<>();
+
+        for(int i = 0; i < genres.length(); i++) {
+            genreList.add(genres.getJSONObject(i).getString("name"));
+        }
+
+        return TextUtils.join(" · ", genreList);
+    }
+
+    private String getPublishers(JSONArray publishers) throws JSONException {
+        List<String> publisherList = new ArrayList<>();
+
+        for(int i = 0; i < publishers.length(); i++) {
+            publisherList.add(publishers.getJSONObject(i).getString("name"));
+        }
+        return TextUtils.join(" , ", publisherList);
     }
 }
