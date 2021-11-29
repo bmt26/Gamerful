@@ -1,23 +1,24 @@
 package com.example.gamezone.fragments;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.gamezone.BuildConfig;
 import com.example.gamezone.R;
-import com.example.gamezone.models.Games;
 import com.example.gamezone.models.Screenshots;
 import com.example.gamezone.models.Stores;
 
@@ -32,7 +33,7 @@ import okhttp3.Headers;
 
 public class DetailsFragment extends Fragment {
 
-    TextView tvId;
+
 
     String name;
     String genres;
@@ -50,6 +51,14 @@ public class DetailsFragment extends Fragment {
     List<Screenshots> screenshots;
     List<Stores> stores;
 
+    ImageView imgGame;
+    TextView gameName;
+    TextView gameGenre;
+    TextView gameRating;
+    TextView ratingCount;
+    TextView tvPlayTime;
+    TextView tvEsrbRating;
+    Button reviewBtn;
 
     public static final String TAG = "DetailsFragment";
     public static final String API_KEY = BuildConfig.RAWG_KEY;
@@ -68,14 +77,21 @@ public class DetailsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        tvId = view.findViewById(R.id.tvId);
 
         screenshots = new ArrayList<>();
         stores = new ArrayList<>();
 
+        imgGame = view.findViewById(R.id.imgGame);
+        gameName = view.findViewById(R.id.gameName);
+        gameGenre = view.findViewById(R.id.gameGenre);
+        gameRating = view.findViewById(R.id.gameRating);
+        ratingCount = view.findViewById(R.id.ratingCount);
+        tvPlayTime = view.findViewById(R.id.tvPlayTime);
+        tvEsrbRating = view.findViewById(R.id.tvEsrbRating);
+        reviewBtn = view.findViewById(R.id.reviewBtn);
+
         Bundle bundle = this.getArguments();
         int gameId = bundle.getInt("Id");
-        tvId.setText(String.valueOf(gameId));
 
         String details_url = BASE_URL + String.valueOf(gameId) + "?key=" + API_KEY;
         String store_url = BASE_URL + String.valueOf(gameId) + "/stores?key=" + API_KEY;
@@ -93,12 +109,17 @@ public class DetailsFragment extends Fragment {
                     poster = jsonObject.getString("background_image");
                     ratings = jsonObject.getDouble("rating");
                     reviewCount = jsonObject.getInt("ratings_count");
-                    esrbRating = jsonObject.getString("esrb_rating");
+
                     description = jsonObject.getString("description_raw");
                     releaseDate = jsonObject.getString("released");
                     publisher = getPublishers(jsonObject.getJSONArray("publishers"));
                     genres = getGenres(jsonObject.getJSONArray("genres"));
                     playTime = jsonObject.getInt("playtime");
+                    try {
+                        esrbRating = jsonObject.getJSONObject("esrb_rating").getString("name");
+                    } catch (JSONException e) {
+                        esrbRating = "N/A";
+                    }
                     try {
                         metacritic = jsonObject.getInt("metacritic");
                     } catch (JSONException e) {
@@ -127,6 +148,13 @@ public class DetailsFragment extends Fragment {
                             Log.d(TAG, "onFailure");
                         }
                     });
+                    Glide.with(getContext()).load(poster).centerCrop().into(imgGame);
+                    gameName.setText(name);
+                    gameGenre.setText(genres);
+                    gameRating.setText(String.valueOf(ratings));
+                    ratingCount.setText(reviewCount + " reviews");
+                    tvPlayTime.setText(String.valueOf(playTime));
+                    tvEsrbRating.setText(esrbRating);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
