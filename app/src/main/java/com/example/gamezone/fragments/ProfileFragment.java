@@ -8,7 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +21,17 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.gamezone.LoginActivity;
 import com.example.gamezone.R;
+import com.example.gamezone.models.Reviews;
 import com.example.gamezone.models.User;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +45,8 @@ public class ProfileFragment extends Fragment {
     private ImageView ivProfilePicture;
     private Button btnEditProfile;
     private Button btnLogout;
+    private List<Reviews> allReviews;
+    private RecyclerView rvReviews;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -55,6 +67,8 @@ public class ProfileFragment extends Fragment {
         ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
         btnLogout = view.findViewById(R.id.btnLogout);
+        rvReviews = view.findViewById(R.id.rvReviews);
+        allReviews = new ArrayList<>();
 
         tvUsername.setText(user.getUsername());
 
@@ -90,6 +104,31 @@ public class ProfileFragment extends Fragment {
                 Intent i = new Intent(getContext(), LoginActivity.class);
                 startActivity(i);
                 getActivity().finish();
+            }
+        });
+
+        queryReviews();
+    }
+
+
+
+    private void queryReviews() {
+        ParseQuery<Reviews> query = ParseQuery.getQuery(Reviews.class);
+        query.include(Reviews.KEY_USER);
+        //query.whereEqualTo(Reviews.KEY_USER, ParseUser.getCurrentUser().getObjectId());
+        query.setLimit(20);
+        query.addDescendingOrder(Reviews.KEY_CREATED_KEY);
+        query.findInBackground(new FindCallback<Reviews>() {
+            @Override
+            public void done(List<Reviews> reviews, ParseException e) {
+                if (e!= null) {
+                    Log.e(TAG, "Issue with getting reviews", e);
+                    return;
+                }
+                allReviews.clear();
+                allReviews.addAll(reviews);
+
+                Log.d(TAG, "All Reviews: " + allReviews);
             }
         });
     }
