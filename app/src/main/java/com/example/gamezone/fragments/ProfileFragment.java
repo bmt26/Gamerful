@@ -22,7 +22,6 @@ import com.example.gamezone.R;
 import com.example.gamezone.models.User;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,12 +60,11 @@ public class ProfileFragment extends Fragment {
 
         ParseFile image = user.getProfileImage();
         if (image != null) {
-            int radius = 200; // corner radius, higher value = more rounded
-            int margin = 0; // crop margin, set to 0 for corners with no crop
             Glide.with(getContext())
+                    .asBitmap()
                     .load(image.getUrl())
-                    .circleCrop() // scale image to fill the entire ImageView
-                    .transform(new RoundedCornersTransformation(radius, margin))
+                    .centerCrop()
+                    .circleCrop()
                     .into(ivProfilePicture);
         }
         else {

@@ -29,8 +29,10 @@ import com.bumptech.glide.Glide;
 import com.example.gamezone.MainActivity;
 import com.example.gamezone.R;
 import com.example.gamezone.models.User;
+import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
@@ -39,8 +41,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 
 // TODO: Repurpose Signup to EditProfile
@@ -52,8 +52,9 @@ public class EditProfileFragment extends Fragment {
     private static final int RESULT_LOAD_IMG = 402;
     private ImageView ivNewPicture;
     private EditText etNewUsername;
-    private EditText etOldPassword;
     private EditText etNewPassword;
+    private EditText etConfirmNewPassword;
+    private EditText etOldPassword;
     private RadioButton radioButton;
     private Button btnBack;
     private Button btnSave;
@@ -62,8 +63,9 @@ public class EditProfileFragment extends Fragment {
 
     private String username;
     private String role;
-    private String password;
-    private String confirmPassword;
+    private String newPassword;
+    private String confirmNewPassword;
+
 
     RadioGroup radioGroup;
 
@@ -79,30 +81,37 @@ public class EditProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_signup, container, false);
+        return inflater.inflate(R.layout.fragment_edit_profile, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         user = (User) User.getCurrentUser();
-        ivNewPicture = view.findViewById(R.id.ivAddPicture);
-        etNewUsername = view.findViewById(R.id.etAddUsername);
-        etOldPassword = view.findViewById(R.id.etAddPassword);
-        etNewPassword = view.findViewById(R.id.etConfirmPassword);
+        ivNewPicture = view.findViewById(R.id.ivNewPicture);
+        etNewUsername = view.findViewById(R.id.etNewUsername);
+        etNewPassword = view.findViewById(R.id.etNewPassword);
+        etConfirmNewPassword = view.findViewById(R.id.etConfirmNewPassword);
         radioGroup = view.findViewById(R.id.radioGroup);
         btnBack = view.findViewById(R.id.btnBack);
         btnSave = view.findViewById(R.id.btnSave);
 
         etNewUsername.setText(user.getUsername());
 
+        if (user.getRole().equals("Parent")) {
+            radioButton = view.findViewById(R.id.radioYes);
+        }
+        else {
+            radioButton = view.findViewById(R.id.radioNo);
+        }
+        radioButton.setChecked(true);
+
         ParseFile image = user.getProfileImage();
         if (image != null) {
-            int radius = 200; // corner radius, higher value = more rounded
-            int margin = 0; // crop margin, set to 0 for corners with no crop
             Glide.with(getContext())
+                    .asBitmap()
                     .load(image.getUrl())
-                    .circleCrop() // scale image to fill the entire ImageView
-                    .transform(new RoundedCornersTransformation(radius, margin))
+                    .centerCrop()
+                    .circleCrop()
                     .into(ivNewPicture);
         }
         else {
@@ -124,7 +133,7 @@ public class EditProfileFragment extends Fragment {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getParentFragmentManager().popBackStack();
+                goProfileFragment();
             }
         });
 
@@ -132,8 +141,8 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 username = etNewUsername.getText().toString();
-                password = etOldPassword.getText().toString();
-                confirmPassword = etNewPassword.getText().toString();
+                newPassword = etNewPassword.getText().toString();
+                confirmNewPassword = etConfirmNewPassword.getText().toString();
 
                 // get selected radio button from radioGroup
                 int selectedId = radioGroup.getCheckedRadioButtonId();
@@ -149,46 +158,72 @@ public class EditProfileFragment extends Fragment {
                         break;
                 }
 
-                if(username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-                    Toast.makeText(getContext(), "Please fill all the information", Toast.LENGTH_SHORT).show();
+                if(username.isEmpty()) {
+                    Toast.makeText(getContext(), "Please enter User Name field", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!password.equals(confirmPassword)) {
-                    Toast.makeText(getContext(), "Your password does not match", Toast.LENGTH_SHORT).show();
+
+                if (!newPassword.isEmpty() || !confirmNewPassword.isEmpty()) {
+                    if(!newPassword.equals(confirmNewPassword)) {
+                        Toast.makeText(getContext(), "Your new passwords do not match", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    updateUser(username, role, newPassword);
                     return;
                 }
-                addUser(username, role, password);
+                updateUser(username, role);
             }
         });
 
     }
 
-    private void addUser(String username, String role, String password) {
+    public void updateUser(String username, String role) {
+        if (user != null) {
+            // Other attributes than "email" will remain unchanged!
+            user.setUsername(username);
+            user.setRole(role);
 
-        final ParseFile file = new ParseFile(photoFile);
-
-        file.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    User user = new User();
-                    user.setUsername(username);
-                    user.setRole(role);
-                    user.setPassword(password);
-                    user.setProfileImage(file);
-                    user.signUpInBackground(new SignUpCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if (e != null) {
-                                Toast.makeText(getContext(), "Error while signing up!", Toast.LENGTH_SHORT).show();
-                            }
-                            goMainActivity();
-                        }
-                    });
-                }
+            if (photoFile != null) {
+                final ParseFile file = new ParseFile(photoFile);
+                user.setProfileImage(file);
             }
-        });
+            // Saves the object.
+            user.saveInBackground(e -> {
+                if (e == null) {
+                    //Save successfull
+                    Toast.makeText(getContext(), "Save Successful", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Something went wrong while saving
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                goProfileFragment();
+            });
+        }
+    }
 
+    public void updateUser(String username, String role, String newPassword) {
+        if (user != null) {
+            // Other attributes than "email" will remain unchanged!
+            user.setUsername(username);
+            user.setRole(role);
+            user.setPassword(newPassword);
+
+            if(photoFile!=null) {
+                final ParseFile file = new ParseFile(photoFile);
+                user.setProfileImage(file);
+            }
+            // Saves the object.
+            user.saveInBackground(e -> {
+                if (e == null) {
+                    //Save successfull
+                    Toast.makeText(getContext(), "Save Successful", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Something went wrong while saving
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                goProfileFragment();
+            });
+        }
     }
 
     @Override
@@ -251,9 +286,7 @@ public class EditProfileFragment extends Fragment {
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 
-    private void goMainActivity() {
-        Intent i = new Intent(getContext(), MainActivity.class);
-        startActivity(i);
-        ((AppCompatActivity) getContext()).finish();
+    private void goProfileFragment() {
+        getParentFragmentManager().popBackStack();
     }
 }
