@@ -37,17 +37,16 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    - [X] Search
    - [X] Review page
    - [X] Profile Page
- - [ ] In home page user will be able to browse different through list of games.
+ - [X] In home page user will be able to browse through different list of games.
  - [ ] In search page user will be able to search for a specific game or game review.
  - [ ] On review page user will be able to see or post game review.
- - [ ] On profile page user will be able to edit his/her profile, see their posted reviews and logout.
- - [ ] User will be able to click on a game to see its details. Details page will include the following:
-   - [ ] Game related images
-   - [ ] Game title / description
-   - [ ] YouTube trailer
-   - [ ] Game info (release date, publisher, user rating, ESRB rating, etc)
-   - [ ] Direct link for where to buy the game?
-   - [ ] User will be able to post a rating.
+ - [X] On profile page user will be able to edit his/her profile, see their posted reviews and logout.
+ - [X] User will be able to click on a game to see its details. Details page will include the following:
+   - [X] Game related images
+   - [X] Game title / description
+   - [X] Game info (release date, publisher, user rating, ESRB rating, etc)
+   - [X] Direct link for where to buy the game?
+ - [ ] User will be able to post a rating.
  - [X] Make an app logo / splash screen.
 
 
@@ -332,4 +331,18 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
  - [X] Make an app logo / splash screen.
 
 <img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Sprint1-Walkthorugh.gif" width=350>
+
+### Sprint 2
+
+**Required Must-have Stories**
+
+ - [X] In home page user will be able to browse through different list of games.
+ - [X] On profile page user will be able to edit his/her profile, see their posted reviews and logout.
+ - [X] User will be able to click on a game to see its details. Details page will include the following:
+   - [X] Game related images
+   - [X] Game title / description
+   - [X] Game info (release date, publisher, user rating, ESRB rating, etc)
+   - [X] Direct link for where to buy the game?
+
+<img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Sprint2-Walkthorugh.gif" width=350>
    
