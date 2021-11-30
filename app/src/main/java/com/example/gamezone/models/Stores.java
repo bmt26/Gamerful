@@ -25,6 +25,10 @@ public class Stores {
         return list;
     }
 
+    public String getStoreName() {
+        return store_name;
+    }
+
     public String getLink() {
         return store_url;
     }

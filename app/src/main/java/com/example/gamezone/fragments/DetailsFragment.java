@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.gamezone.Adapters.ScreenshotAdapter;
+import com.example.gamezone.Adapters.StoresAdapter;
 import com.example.gamezone.BuildConfig;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Screenshots;
@@ -64,6 +65,7 @@ public class DetailsFragment extends Fragment {
     TextView tvPlayTime;
     ImageView ivEsrb;
     TextView tvEsrbRating;
+    TextView tvBuy;
     Button reviewBtn;
 
     public static final String TAG = "DetailsFragment";
@@ -96,6 +98,7 @@ public class DetailsFragment extends Fragment {
         ivEsrb = view.findViewById(R.id.ivEsrb);
         tvEsrbRating = view.findViewById(R.id.tvEsrbRating);
         reviewBtn = view.findViewById(R.id.reviewBtn);
+        tvBuy = view.findViewById(R.id.tvBuy);
 
         Bundle bundle = this.getArguments();
         int gameId = bundle.getInt("Id");
@@ -109,6 +112,12 @@ public class DetailsFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         ScreenshotAdapter adapter = new ScreenshotAdapter(getContext(), screenshots);
         recyclerView.setAdapter(adapter);
+
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView recyclerView2 = view.findViewById(R.id.rvStores);
+        recyclerView2.setLayoutManager(layoutManager2);
+        StoresAdapter storesAdapter = new StoresAdapter(getContext(), stores);
+        recyclerView2.setAdapter(storesAdapter);
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(details_url, new JsonHttpResponseHandler() {
@@ -182,6 +191,15 @@ public class DetailsFragment extends Fragment {
                                 JSONArray results = jsonObjectStore.getJSONArray("results");
                                 JSONArray store_list = jsonObject.getJSONArray("stores");
                                 stores.addAll(Stores.fromJsonArray(results, store_list));
+
+                                if(stores.size() == 0) {
+                                    tvBuy.setVisibility(View.GONE);
+                                }
+                                else {
+                                    tvBuy.setVisibility(View.VISIBLE);
+                                }
+
+                                storesAdapter.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

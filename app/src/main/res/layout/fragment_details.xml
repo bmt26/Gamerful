@@ -89,6 +89,7 @@
                 android:id="@+id/ratingCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="5147 reviews"
                 android:textAlignment="center"
                 android:textColor="@color/text_gray"
@@ -118,6 +119,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="Play Time"
                 android:textAlignment="center"
                 android:textColor="@color/text_gray"
@@ -142,8 +144,10 @@
                 android:id="@+id/tvEsrbRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="Mature"
                 android:textAlignment="center"
+                android:textColor="@color/text_gray"
                 android:textSize="11sp" />
 
         </LinearLayout>
@@ -165,12 +169,37 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvScreenshots"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="167dp"
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reviewBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/reviewBtn">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/tvBuy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/nunito_bold"
+        android:text="Where to Buy"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvScreenshots" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvStores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBuy" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
