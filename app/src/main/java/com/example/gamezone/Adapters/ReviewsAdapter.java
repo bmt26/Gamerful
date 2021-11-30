@@ -70,7 +70,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
             if (image!=null) {
                 Glide.with(context)
                         .asBitmap()
-                        .load(image)
+                        .load(image.getUrl())
                         .centerCrop()
                         .circleCrop()
                         .into(ivProfilePicture);

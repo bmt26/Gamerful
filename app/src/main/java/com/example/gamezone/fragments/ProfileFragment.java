@@ -66,6 +66,7 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         user = (User) User.getCurrentUser();
         tvUsername = view.findViewById(R.id.tvUsername);
         ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
@@ -122,7 +123,7 @@ public class ProfileFragment extends Fragment {
     private void queryReviews() {
         ParseQuery<Reviews> query = ParseQuery.getQuery(Reviews.class);
         query.include(Reviews.KEY_USER);
-        //query.whereEqualTo(Reviews.KEY_USER, ParseUser.getCurrentUser().getObjectId());
+        query.whereEqualTo(Reviews.KEY_USER, ParseUser.getCurrentUser());
         query.setLimit(20);
         query.addDescendingOrder(Reviews.KEY_CREATED_KEY);
         query.findInBackground(new FindCallback<Reviews>() {
@@ -132,7 +133,6 @@ public class ProfileFragment extends Fragment {
                     Log.e(TAG, "Issue with getting reviews", e);
                     return;
                 }
-                allReviews.clear();
                 allReviews.addAll(reviews);
                 reviewsAdapter.notifyDataSetChanged();
 
