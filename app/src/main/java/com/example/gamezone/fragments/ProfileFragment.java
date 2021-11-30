@@ -6,8 +6,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -19,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.gamezone.Adapters.ReviewsAdapter;
 import com.example.gamezone.LoginActivity;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Reviews;
@@ -47,6 +50,7 @@ public class ProfileFragment extends Fragment {
     private Button btnLogout;
     private List<Reviews> allReviews;
     private RecyclerView rvReviews;
+    private ReviewsAdapter reviewsAdapter;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -69,6 +73,7 @@ public class ProfileFragment extends Fragment {
         btnLogout = view.findViewById(R.id.btnLogout);
         rvReviews = view.findViewById(R.id.rvReviews);
         allReviews = new ArrayList<>();
+        reviewsAdapter = new ReviewsAdapter(getContext(), allReviews);
 
         tvUsername.setText(user.getUsername());
 
@@ -107,6 +112,8 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        rvReviews.setAdapter(reviewsAdapter);
+        rvReviews.setLayoutManager(new LinearLayoutManager(getContext()));
         queryReviews();
     }
 
@@ -127,6 +134,7 @@ public class ProfileFragment extends Fragment {
                 }
                 allReviews.clear();
                 allReviews.addAll(reviews);
+                reviewsAdapter.notifyDataSetChanged();
 
                 Log.d(TAG, "All Reviews: " + allReviews);
             }
