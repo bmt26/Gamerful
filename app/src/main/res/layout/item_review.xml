@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:background="@color/cardview_dark_background"
+    android:background="@drawable/card_border"
+    android:paddingBottom="20dp"
     tools:context=".fragments.ProfileFragment">
 
     <ImageView
         android:id="@+id/ivProfilePicture"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toStartOf="@+id/tvUsername"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,10 +24,11 @@
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/nunito_bold"
-        android:textSize="18sp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/nunito_semibold"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/ivProfilePicture"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Brian" />
@@ -36,8 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:fontFamily="@font/nunito_bold"
-        android:textSize="10sp"
+        android:fontFamily="@font/nunito"
+        android:textColor="@color/white"
+        android:textSize="8sp"
         app:layout_constraintStart_toEndOf="@+id/ivProfilePicture"
         app:layout_constraintTop_toBottomOf="@+id/tvUsername"
         tools:text="01 November 2021" />
@@ -47,8 +50,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/nunito_bold"
-        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivProfilePicture"
         tools:text="Fortnite" />
@@ -59,22 +64,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvGame"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvGame" />
 
     <TextView
         android:id="@+id/tvComment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="10dp"
-        android:fontFamily="@font/nunito_bold"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/nunito"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:lineSpacingExtra="5sp"
+        android:maxLines="7"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rbRating"
-        app:layout_constraintBottom_toBottomOf="parent"
         tools:text="In all due honestly, this game is one of the best made." />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="179dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/card_border"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvComment">
+
+        <ImageView
+            android:id="@+id/ivPostedPicture"
+            android:layout_width="match_parent"
+            android:layout_height="179dp"
+            android:scaleType="centerCrop"
+            android:visibility="visible"
+
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

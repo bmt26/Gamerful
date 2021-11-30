@@ -15,7 +15,7 @@
             android:id="@+id/clHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/cardview_dark_background"
+            android:background="@drawable/card_rounder_corner"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -24,18 +24,20 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:fontFamily="@font/nunito_bold"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito"
                 android:text="Profile"
-                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/ivProfilePicture"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
+                android:layout_width="105dp"
+                android:layout_height="105dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle"
@@ -45,30 +47,52 @@
                 android:id="@+id/tvUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/nunito_bold"
-                android:textSize="30sp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/nunito_semibold"
+                android:textColor="@color/white"
+                android:textSize="26sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivProfilePicture"
                 tools:text="Username" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEditProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="135dp"
+                android:layout_height="40sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:padding="0dp"
                 android:text="Edit Profile"
+                android:textAllCaps="false"
+                android:textSize="11sp"
+                app:cornerRadius="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnLogout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
+                app:layout_constraintTop_toBottomOf="@+id/tvUsername"
+                app:strokeColor="@color/white" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="135dp"
+                android:layout_height="40sp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:padding="0dp"
                 android:text="Logout"
+                android:textAllCaps="false"
+                android:textSize="11sp"
+                app:cornerRadius="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btnEditProfile"
-                app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
+                app:layout_constraintTop_toBottomOf="@+id/tvUsername"
+                app:strokeColor="@color/white" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -77,10 +101,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/nunito_bold"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/nunito"
             android:text="Posted Reviews"
-            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/clHeader" />
 
@@ -88,7 +113,7 @@
             android:id="@+id/rvReviews"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvReviewsTitle" />

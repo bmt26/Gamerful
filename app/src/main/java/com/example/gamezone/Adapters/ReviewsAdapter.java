@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Reviews;
 import com.parse.ParseFile;
@@ -54,6 +56,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         private TextView tvGame;
         private RatingBar rbRating;
         private TextView tvComment;
+        private ImageView ivPostedPicture;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,14 +66,16 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
             tvGame = itemView.findViewById(R.id.tvGame);
             rbRating = itemView.findViewById(R.id.rbRating);
             tvComment = itemView.findViewById(R.id.tvComment);
+            ivPostedPicture = itemView.findViewById(R.id.ivPostedPicture);
         }
 
         public void bind(Reviews review) {
+            ParseFile profileImage = review.getUser().getParseFile("profilePic");
             ParseFile image = review.getImage();
-            if (image!=null) {
+            if (profileImage!=null) {
                 Glide.with(context)
                         .asBitmap()
-                        .load(image.getUrl())
+                        .load(profileImage.getUrl())
                         .centerCrop()
                         .circleCrop()
                         .into(ivProfilePicture);
@@ -79,6 +84,17 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                 Glide.with(context)
                         .load(R.drawable.ic_default_figure)
                         .into(ivProfilePicture);
+            }
+
+            if (image != null) {
+                Glide.with(context)
+                        .asBitmap()
+                        .load(image.getUrl())
+                        .into(ivPostedPicture);
+                ivPostedPicture.setVisibility(View.VISIBLE);
+            }
+            else {
+                ivPostedPicture.setVisibility(View.GONE);
             }
 
 
