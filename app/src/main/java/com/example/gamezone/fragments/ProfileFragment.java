@@ -133,6 +133,7 @@ public class ProfileFragment extends Fragment {
                     Log.e(TAG, "Issue with getting reviews", e);
                     return;
                 }
+                allReviews.clear();
                 allReviews.addAll(reviews);
                 reviewsAdapter.notifyDataSetChanged();
 
