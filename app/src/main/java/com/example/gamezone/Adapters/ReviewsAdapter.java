@@ -9,6 +9,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -57,6 +58,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         private RatingBar rbRating;
         private TextView tvComment;
         private ImageView ivPostedPicture;
+        private CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +69,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
             rbRating = itemView.findViewById(R.id.rbRating);
             tvComment = itemView.findViewById(R.id.tvComment);
             ivPostedPicture = itemView.findViewById(R.id.ivPostedPicture);
+            cardView = itemView.findViewById(R.id.cardView);
         }
 
         public void bind(Reviews review) {
@@ -91,10 +94,10 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                         .asBitmap()
                         .load(image.getUrl())
                         .into(ivPostedPicture);
-                ivPostedPicture.setVisibility(View.VISIBLE);
+                cardView.setVisibility(View.VISIBLE);
             }
             else {
-                ivPostedPicture.setVisibility(View.GONE);
+                cardView.setVisibility(View.GONE);
             }
 
 

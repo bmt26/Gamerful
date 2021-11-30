@@ -158,6 +158,18 @@ public class DetailsFragment extends Fragment {
                         metacritic = 0;
                     }
 
+                    gameName.setText(name);
+                    gameGenre.setText(genres);
+                    gameRating.setText(String.valueOf(ratings));
+                    ratingCount.setText(reviewCount + " reviews");
+                    tvPlayTime.setText(String.valueOf(playTime));
+                    tvEsrbRating.setText(esrbRating);
+                    tvDescription.setText(description);
+                    tvReleaseData.setText(releaseDate);
+                    tvAgeRating.setText(esrbRating);
+                    tvPublisher.setText(publisher);
+                    tvMetaScore.setText(String.valueOf(metacritic));
+
                     switch (esrbRating) {
                         case "Everyone":
                             esrbImage = R.drawable.ic_esrb_e;
@@ -223,17 +235,6 @@ public class DetailsFragment extends Fragment {
                             .load(poster)
                             .centerCrop()
                             .into(imgGame);
-                    gameName.setText(name);
-                    gameGenre.setText(genres);
-                    gameRating.setText(String.valueOf(ratings));
-                    ratingCount.setText(reviewCount + " reviews");
-                    tvPlayTime.setText(String.valueOf(playTime));
-                    tvEsrbRating.setText(esrbRating);
-                    tvDescription.setText(description);
-                    tvReleaseData.setText(releaseDate);
-                    tvAgeRating.setText(esrbRating);
-                    tvPublisher.setText(publisher);
-                    tvMetaScore.setText(String.valueOf(metacritic));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
