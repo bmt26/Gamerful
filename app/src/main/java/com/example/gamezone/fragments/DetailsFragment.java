@@ -13,10 +13,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.gamezone.Adapters.ScreenshotAdapter;
+import com.example.gamezone.Adapters.StoresAdapter;
 import com.example.gamezone.BuildConfig;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Screenshots;
@@ -43,6 +47,8 @@ public class DetailsFragment extends Fragment {
     String releaseDate;
     String publisher;
 
+    int esrbImage;
+
     int reviewCount;
     int playTime;
     int metacritic;
@@ -57,7 +63,9 @@ public class DetailsFragment extends Fragment {
     TextView gameRating;
     TextView ratingCount;
     TextView tvPlayTime;
+    ImageView ivEsrb;
     TextView tvEsrbRating;
+    TextView tvBuy;
     Button reviewBtn;
 
     public static final String TAG = "DetailsFragment";
@@ -87,8 +95,10 @@ public class DetailsFragment extends Fragment {
         gameRating = view.findViewById(R.id.gameRating);
         ratingCount = view.findViewById(R.id.ratingCount);
         tvPlayTime = view.findViewById(R.id.tvPlayTime);
+        ivEsrb = view.findViewById(R.id.ivEsrb);
         tvEsrbRating = view.findViewById(R.id.tvEsrbRating);
         reviewBtn = view.findViewById(R.id.reviewBtn);
+        tvBuy = view.findViewById(R.id.tvBuy);
 
         Bundle bundle = this.getArguments();
         int gameId = bundle.getInt("Id");
@@ -96,6 +106,18 @@ public class DetailsFragment extends Fragment {
         String details_url = BASE_URL + String.valueOf(gameId) + "?key=" + API_KEY;
         String store_url = BASE_URL + String.valueOf(gameId) + "/stores?key=" + API_KEY;
         String screenshots_url = BASE_URL + String.valueOf(gameId) + "/screenshots?key=" + API_KEY;
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView recyclerView = view.findViewById(R.id.rvScreenshots);
+        recyclerView.setLayoutManager(layoutManager);
+        ScreenshotAdapter adapter = new ScreenshotAdapter(getContext(), screenshots);
+        recyclerView.setAdapter(adapter);
+
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView recyclerView2 = view.findViewById(R.id.rvStores);
+        recyclerView2.setLayoutManager(layoutManager2);
+        StoresAdapter storesAdapter = new StoresAdapter(getContext(), stores);
+        recyclerView2.setAdapter(storesAdapter);
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(details_url, new JsonHttpResponseHandler() {
@@ -118,13 +140,46 @@ public class DetailsFragment extends Fragment {
                     try {
                         esrbRating = jsonObject.getJSONObject("esrb_rating").getString("name");
                     } catch (JSONException e) {
-                        esrbRating = "N/A";
+                        esrbRating = "Rating Pending";
                     }
+
                     try {
                         metacritic = jsonObject.getInt("metacritic");
                     } catch (JSONException e) {
                         metacritic = 0;
                     }
+
+                    switch (esrbRating) {
+                        case "Everyone":
+                            esrbImage = R.drawable.ic_esrb_e;
+                            break;
+
+                        case "Everyone 10+":
+                            esrbImage = R.drawable.ic_esrb_e10;
+                            break;
+
+                        case "Teen":
+                            esrbImage = R.drawable.ic_esrb_t;
+                            break;
+
+                        case "Mature":
+                            esrbImage = R.drawable.ic_esrb_m;
+                            break;
+
+                        case "Adults Only":
+                            esrbImage = R.drawable.ic_esrb_a18;
+                            break;
+
+                        case "Rating Pending":
+                            esrbImage = R.drawable.ic_esrb_rp;
+                            break;
+                    }
+
+                    Glide.with(getContext())
+                            .asBitmap()
+                            .centerCrop()
+                            .load(esrbImage)
+                            .into(ivEsrb);
 
                     // Gets object list of stores
                     client.get(store_url, new JsonHttpResponseHandler() {
@@ -136,11 +191,18 @@ public class DetailsFragment extends Fragment {
                                 JSONArray results = jsonObjectStore.getJSONArray("results");
                                 JSONArray store_list = jsonObject.getJSONArray("stores");
                                 stores.addAll(Stores.fromJsonArray(results, store_list));
+
+                                if(stores.size() == 0) {
+                                    tvBuy.setVisibility(View.GONE);
+                                }
+                                else {
+                                    tvBuy.setVisibility(View.VISIBLE);
+                                }
+
+                                storesAdapter.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
-                            Log.i(TAG, "Results: " + stores.get(0).store_name + " : " + stores.get(0).store_url);
                         }
 
                         @Override
@@ -148,7 +210,10 @@ public class DetailsFragment extends Fragment {
                             Log.d(TAG, "onFailure");
                         }
                     });
-                    Glide.with(getContext()).load(poster).centerCrop().into(imgGame);
+                    Glide.with(getContext())
+                            .load(poster)
+                            .centerCrop()
+                            .into(imgGame);
                     gameName.setText(name);
                     gameGenre.setText(genres);
                     gameRating.setText(String.valueOf(ratings));
@@ -174,6 +239,7 @@ public class DetailsFragment extends Fragment {
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
                     screenshots.addAll(Screenshots.fromJsonArray(results));
+                    adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
