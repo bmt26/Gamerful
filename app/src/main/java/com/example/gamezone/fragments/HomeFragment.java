@@ -303,7 +303,7 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < dots.length; i++) {
             dots[i] = new TextView(getContext());
             dots[i].setText(Html.fromHtml("&#x25CB;")); // &#9675;
-            dots[i].setTextSize(18);
+            dots[i].setTextSize(10);
             dotsLayout.addView(dots[i]);
         }
     }
