@@ -66,6 +66,11 @@ public class DetailsFragment extends Fragment {
     ImageView ivEsrb;
     TextView tvEsrbRating;
     TextView tvBuy;
+    TextView tvDescription;
+    TextView tvReleaseData;
+    TextView tvAgeRating;
+    TextView tvPublisher;
+    TextView tvMetaScore;
     Button reviewBtn;
 
     public static final String TAG = "DetailsFragment";
@@ -99,6 +104,11 @@ public class DetailsFragment extends Fragment {
         tvEsrbRating = view.findViewById(R.id.tvEsrbRating);
         reviewBtn = view.findViewById(R.id.reviewBtn);
         tvBuy = view.findViewById(R.id.tvBuy);
+        tvDescription = view.findViewById(R.id.tvDescription);
+        tvReleaseData = view.findViewById(R.id.tvReleaseData);
+        tvAgeRating = view.findViewById(R.id.tvAgeRating);
+        tvPublisher = view.findViewById(R.id.tvPublisher);
+        tvMetaScore = view.findViewById(R.id.tvMetaScore);
 
         Bundle bundle = this.getArguments();
         int gameId = bundle.getInt("Id");
@@ -125,7 +135,6 @@ public class DetailsFragment extends Fragment {
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.d(TAG, "onSuccess");
                 JSONObject jsonObject = json.jsonObject;
-                Log.i(TAG, "Results: " + jsonObject);
                 try {
                     name = jsonObject.getString("name");
                     poster = jsonObject.getString("background_image");
@@ -220,6 +229,11 @@ public class DetailsFragment extends Fragment {
                     ratingCount.setText(reviewCount + " reviews");
                     tvPlayTime.setText(String.valueOf(playTime));
                     tvEsrbRating.setText(esrbRating);
+                    tvDescription.setText(description);
+                    tvReleaseData.setText(releaseDate);
+                    tvAgeRating.setText(esrbRating);
+                    tvPublisher.setText(publisher);
+                    tvMetaScore.setText(String.valueOf(metacritic));
 
                 } catch (JSONException e) {
                     e.printStackTrace();

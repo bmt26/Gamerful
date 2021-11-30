@@ -244,10 +244,8 @@ public class HomeFragment extends Fragment {
                 JSONObject jsonObject = json.jsonObject;
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "Results: " + results);
                     games.addAll(Games.fromJsonArray(results));
                     adapter.notifyDataSetChanged();
-                    Log.d(TAG, "games: " + games.get(0).getName());
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit JSON exception", e);
                     e.printStackTrace();
@@ -271,10 +269,8 @@ public class HomeFragment extends Fragment {
                 JSONObject jsonObject = json.jsonObject;
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "Results: " + results);
                     games.addAll(Games.fromJsonArray(results));
                     adapter.notifyDataSetChanged();
-                    Log.d(TAG, "games-1: " + games.get(0).getName());
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit JSON exception", e);
                     e.printStackTrace();
