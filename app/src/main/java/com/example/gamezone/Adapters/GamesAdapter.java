@@ -94,8 +94,7 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> 
                     Fragment fragment = new DetailsFragment();
                     fragment.setArguments(bundle);
                     fragmentManager.beginTransaction()
-                            .hide(Objects.requireNonNull(fragmentManager.findFragmentByTag("homeFragment")))
-                            .add(R.id.flContainer, fragment)
+                            .replace(R.id.flContainer, fragment)
                             .addToBackStack(null)
                             .commit();
                 }
