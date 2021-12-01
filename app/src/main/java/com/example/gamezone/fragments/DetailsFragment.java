@@ -113,6 +113,14 @@ public class DetailsFragment extends Fragment {
         Bundle bundle = this.getArguments();
         int gameId = bundle.getInt("Id");
 
+        reviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new ComposeReviewFragment();
+                getParentFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).addToBackStack(null).commit();
+            }
+        });
+
         String details_url = BASE_URL + String.valueOf(gameId) + "?key=" + API_KEY;
         String store_url = BASE_URL + String.valueOf(gameId) + "/stores?key=" + API_KEY;
         String screenshots_url = BASE_URL + String.valueOf(gameId) + "/screenshots?key=" + API_KEY;

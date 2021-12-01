@@ -41,36 +41,58 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"  />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiComment"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        app:boxBackgroundColor="@color/black"
-        app:boxBackgroundMode="none"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSubmit">
 
-        <EditText
-            android:id="@+id/etComment"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
             android:background="@null"
-            android:ems="10"
-            android:hint="Comments..."
-            android:inputType="textPersonName"
-            android:textSize="18dp"
+            app:boxBackgroundColor="@color/black"
+            app:boxBackgroundMode="none"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="SpeakableTextPresentCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar">
 
+            <EditText
+                android:id="@+id/etComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Comments..."
+                android:inputType="textMultiLine"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/imageBtn"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:drawableEnd="@android:drawable/ic_menu_report_image"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/login_btn"
