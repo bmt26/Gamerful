@@ -1,22 +1,30 @@
 package com.example.gamezone.fragments;
 
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
+import com.example.gamezone.Adapters.ReviewsAdapter;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Reviews;
+import com.example.gamezone.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +36,13 @@ public class ReviewFragment extends Fragment {
 
 
     private static final String TAG = "ReviewFragment";
-    protected List<Reviews> allReviews;
+    protected List<Reviews> parentsReviews;
+    protected List<Reviews> kidsReviews;
+    private RecyclerView rvReviews;
+    private ReviewsAdapter reviewsAdapter;
+    private RadioGroup rgAge;
+    private RadioButton rbParents;
+    private RadioButton rbKids;
 
     public ReviewFragment() {
         // Required empty public constructor
@@ -44,7 +58,39 @@ public class ReviewFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        allReviews = new ArrayList<>();
+        super.onViewCreated(view, savedInstanceState);
+        rbParents = view.findViewById(R.id.rbParents);
+        rbKids = view.findViewById(R.id.rbKids);
+
+        rbParents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rbParents.setCompoundDrawablesWithIntrinsicBounds(null, null, null, getContext().getDrawable(R.drawable.ic_horizontal_line_svgrepo_com));
+                rbKids.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                reviewsAdapter = new ReviewsAdapter(getContext(), parentsReviews);
+                rvReviews.setAdapter(reviewsAdapter);
+                rvReviews.setLayoutManager(new LinearLayoutManager(getContext()));
+                reviewsAdapter.notifyDataSetChanged();
+            }
+        });
+
+        rbKids.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rbKids.setCompoundDrawablesWithIntrinsicBounds(null, null, null, getContext().getDrawable(R.drawable.ic_horizontal_line_svgrepo_com));
+                rbParents.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                reviewsAdapter = new ReviewsAdapter(getContext(), kidsReviews);
+                rvReviews.setAdapter(reviewsAdapter);
+                rvReviews.setLayoutManager(new LinearLayoutManager(getContext()));
+                reviewsAdapter.notifyDataSetChanged();
+            }
+        });
+        rvReviews = view.findViewById(R.id.rvReviews);
+        parentsReviews = new ArrayList<>();
+        kidsReviews = new ArrayList<>();
+        reviewsAdapter = new ReviewsAdapter(getContext(), parentsReviews);
+        rvReviews.setAdapter(reviewsAdapter);
+        rvReviews.setLayoutManager(new LinearLayoutManager(getContext()));
         queryReviews();
     }
 
@@ -61,10 +107,21 @@ public class ReviewFragment extends Fragment {
                     Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
-                allReviews.clear();
-                allReviews.addAll(reviews);
+                parentsReviews.clear();
+                kidsReviews.clear();
+                for(Reviews review : reviews) {
+                    User user = (User)review.getUser();
+                    if (user.getRole().equals("Parent")) {
+                        parentsReviews.add(review);
+                    }
+                    else {
+                        kidsReviews.add(review);
+                    }
+                }
+                reviewsAdapter.notifyDataSetChanged();
 
-                Log.d(TAG, "All Reviews: " + allReviews);
+                Log.d(TAG, "Parents Reviews: " + parentsReviews);
+                Log.d(TAG, "Kids Reviews: " + kidsReviews);
             }
         });
     }
