@@ -9,7 +9,7 @@
     tools:context=".fragments.ComposeReviewFragment">
 
     <Button
-        android:id="@+id/backBtn"
+        android:id="@+id/btnBack"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         android:textColor="@color/white"
         android:textSize="26dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/backBtn" />
+        app:layout_constraintTop_toBottomOf="@id/btnBack" />
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar"
         android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSubmit">
+        app:layout_constraintBottom_toTopOf="@+id/ivImage">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tiComment"
@@ -74,10 +74,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
+
     </ScrollView>
 
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnSubmit"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp" />
+
     <Button
-        android:id="@+id/imageBtn"
+        android:id="@+id/btnAddImage"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="60dp"
         android:layout_height="wrap_content"

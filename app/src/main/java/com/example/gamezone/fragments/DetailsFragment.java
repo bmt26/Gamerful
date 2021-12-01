@@ -116,7 +116,7 @@ public class DetailsFragment extends Fragment {
         reviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new ComposeReviewFragment();
+                Fragment fragment = new ComposeReviewFragment(name);
                 getParentFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).addToBackStack(null).commit();
             }
         });
