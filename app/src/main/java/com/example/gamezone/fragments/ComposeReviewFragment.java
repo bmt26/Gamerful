@@ -129,32 +129,43 @@ public class ComposeReviewFragment extends Fragment {
 
     private void addReview(ParseUser user, String game, String comment, int starRating) {
 
-        final ParseFile file = new ParseFile(photoFile);
+        Reviews review = new Reviews();
+        review.setUser(user);
+        review.setGame(game);
+        review.setStartRating(starRating);
+        review.setComment(comment);
 
-        file.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    Reviews review = new Reviews();
-                    review.setUser(user);
-                    review.setGame(game);
-                    review.setStartRating(starRating);
-                    review.setComment(comment);
-                    if(file!=null) {
+        if(photoFile!=null) {
+            final ParseFile file = new ParseFile(photoFile);
+            file.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e == null) {
                         review.setImage(file);
-                    }
-                    review.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if (e != null) {
-                                Toast.makeText(getContext(), "Error while posting review!", Toast.LENGTH_SHORT).show();
+                        review.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if (e != null) {
+                                    Toast.makeText(getContext(), "Error while posting review!", Toast.LENGTH_SHORT).show();
+                                }
+                                goMainActivity();
                             }
-                            goMainActivity();
-                        }
-                    });
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
+        else {
+            review.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e != null) {
+                        Toast.makeText(getContext(), "Error while posting review!", Toast.LENGTH_SHORT).show();
+                    }
+                    goMainActivity();
+                }
+            });
+        }
     }
 
     @Override
