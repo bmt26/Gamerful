@@ -345,4 +345,26 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    - [X] Direct link for where to buy the game?
 
 <img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Sprint2-Walkthorugh.gif" width=350>
+
+### Sprint 3
+
+**Required Must-have Stories**
+
+ - [X] From detail page a user can navigate to the compose page to be able to create a review on the game they navigated from. They can input the following:
+   - [X] Game Title
+   - [X] Star Rating
+   - [X] Comment
+   - [X] Upload a game image
+ - [X] On review page user will be able to see posted reviews from all users filtered as either posted from kids or posted from parents with the following contents:
+   - [X] Game Title
+   - [X] Review's user's username and profile picture
+   - [X] Star Rating
+   - [X] Comment
+   - [X] Uploaded Game Image, if any
+ - [X] User will be able to click on a game to see its details. Details page will include the following:
+- [ ] From search page a user can create search to get relevant results for:
+   - [ ] Reviews
+   - [ ] Games
+
+<img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Sprint3-Walkthorugh.gif" width=350>
    
