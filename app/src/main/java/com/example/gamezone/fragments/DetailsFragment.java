@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,7 @@ import com.example.gamezone.BuildConfig;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Screenshots;
 import com.example.gamezone.models.Stores;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,6 +74,8 @@ public class DetailsFragment extends Fragment {
     TextView tvPublisher;
     TextView tvMetaScore;
     Button reviewBtn;
+    ShimmerFrameLayout shimmerFrameLayout;
+    ConstraintLayout scrollView2;
 
     public static final String TAG = "DetailsFragment";
     public static final String API_KEY = BuildConfig.RAWG_KEY;
@@ -109,6 +113,10 @@ public class DetailsFragment extends Fragment {
         tvAgeRating = view.findViewById(R.id.tvAgeRating);
         tvPublisher = view.findViewById(R.id.tvPublisher);
         tvMetaScore = view.findViewById(R.id.tvMetaScore);
+        shimmerFrameLayout = view.findViewById(R.id.shimmerLayout);
+        scrollView2 = view.findViewById(R.id.scrollView2);
+
+        shimmerFrameLayout.startShimmer();
 
         Bundle bundle = this.getArguments();
         int gameId = bundle.getInt("Id");
@@ -221,6 +229,10 @@ public class DetailsFragment extends Fragment {
                                 }
 
                                 storesAdapter.notifyDataSetChanged();
+
+                                shimmerFrameLayout.setVisibility(View.GONE);
+                                scrollView2.setVisibility(View.VISIBLE);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
