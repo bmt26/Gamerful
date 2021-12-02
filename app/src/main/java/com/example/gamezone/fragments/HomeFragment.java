@@ -5,7 +5,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -43,17 +45,17 @@ public class HomeFragment extends Fragment {
 
     public static final String TAG = "HomeFragment";
     public static final String API_KEY = BuildConfig.RAWG_KEY;
-    public static final String RECENT_GAME = "https://rawg.io/api/games/lists/recent-games?discover=true&ordering=-relevance&page_size=10&key=" + API_KEY;
-    public static final String UPCOMING_GAMES = "https://rawg.io/api/games/lists/recent-games-future?discover=true&ordering=-added&page_size=20&page=1&key=" + API_KEY;
-    public static final String GAMES_LAST_MONTH = "https://rawg.io/api/games/lists/recent-games-past?discover=true&ordering=-added&page_size=20&page=1&key=" + API_KEY;
-    public static final String TOP_RATED = "https://rawg.io/api/games/lists/main?discover=true&ordering=-relevance&page_size=20&page=1&key=" + API_KEY;
-    public static final String TOP_THIS_YEAR = "https://rawg.io/api/games/lists/greatest?discover=true&ordering=-added&page_size=20&page=1&key=" + API_KEY;
-    public static final String ALL_TIME_POPULAR = "https://rawg.io/api/games/lists/popular??discover=true&&page_size=20&page=1&key=" + API_KEY;
-    public static final String PC_GAMES = "https://rawg.io/api/games?parent_platforms=1&ordering=-rating&page=1&page_size=20&filter=true&comments=true&key=" + API_KEY;
-    public static final String PS_GAMES = "https://rawg.io/api/games?parent_platforms=2&ordering=-rating&page=1&page_size=20&filter=true&comments=true&key=" + API_KEY;
-    public static final String XBOX_GAMES = "https://rawg.io/api/games?parent_platforms=3&ordering=-rating&page=1&page_size=20&filter=true&comments=true&key=" + API_KEY;
-    public static final String ANDROID_GAMES = "https://rawg.io/api/games?parent_platforms=8&page=1&page_size=20&filter=true&comments=true&key=" + API_KEY;
-    public static final String IOS_GAMES = "https://rawg.io/api/games?parent_platforms=4&page=1&page_size=20&filter=true&comments=true&key=" + API_KEY;
+    public static final String RECENT_GAME = "https://rawg.io/api/games/lists/recent-games?discover=true&ordering=-relevance&key=" + API_KEY + "&page_size=10";
+    public static final String UPCOMING_GAMES = "https://rawg.io/api/games/lists/recent-games-future?discover=true&ordering=-added&page=1&key=" + API_KEY + "&page_size=20";
+    public static final String GAMES_LAST_MONTH = "https://rawg.io/api/games/lists/recent-games-past?discover=true&ordering=-added&page=1&key=" + API_KEY + "&page_size=20";
+    public static final String TOP_RATED = "https://rawg.io/api/games/lists/main?discover=true&ordering=-relevance&page=1&key=" + API_KEY + "&page_size=20";
+    public static final String TOP_THIS_YEAR = "https://rawg.io/api/games/lists/greatest?discover=true&ordering=-added&page=1&key=" + API_KEY + "&page_size=20";
+    public static final String ALL_TIME_POPULAR = "https://rawg.io/api/games/lists/popular??discover=true&page=1&key=" + API_KEY + "&page_size=20";
+    public static final String PC_GAMES = "https://rawg.io/api/games?parent_platforms=1&ordering=-rating&page=1&filter=true&comments=true&key=" + API_KEY + "&page_size=20";
+    public static final String PS_GAMES = "https://rawg.io/api/games?parent_platforms=2&ordering=-rating&page=1&filter=true&comments=true&key=" + API_KEY + "&page_size=20";
+    public static final String XBOX_GAMES = "https://rawg.io/api/games?parent_platforms=3&ordering=-rating&page=1&filter=true&comments=true&key=" + API_KEY + "&page_size=20";
+    public static final String ANDROID_GAMES = "https://rawg.io/api/games?parent_platforms=8&page=1&filter=true&comments=true&key=" + API_KEY + "&page_size=20";
+    public static final String IOS_GAMES = "https://rawg.io/api/games?parent_platforms=4&page=1&filter=true&comments=true&key=" + API_KEY + "&page_size=20";
 
     List<Games> topGames;
     List<Games> upcomingGames;
@@ -73,6 +75,10 @@ public class HomeFragment extends Fragment {
     TextView[] dots;
     LinearLayout linearHome;
     ShimmerFrameLayout shimmerFrameLayout;
+
+    TextView tvViewAll1, tvViewAll2, tvViewAll3, tvViewAll4, tvViewAll5, tvViewAll6, tvViewAll7, tvViewAll8, tvViewAll9, tvViewAll10;
+
+    FragmentManager fragmentManager;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -100,6 +106,97 @@ public class HomeFragment extends Fragment {
         xBox = new ArrayList<>();
         android = new ArrayList<>();
         ios = new ArrayList<>();
+
+        tvViewAll1 = view.findViewById(R.id.tvViewAll1);
+        tvViewAll2 = view.findViewById(R.id.tvViewAll2);
+        tvViewAll3 = view.findViewById(R.id.tvViewAll3);
+        tvViewAll4 = view.findViewById(R.id.tvViewAll4);
+        tvViewAll5 = view.findViewById(R.id.tvViewAll5);
+        tvViewAll6 = view.findViewById(R.id.tvViewAll6);
+        tvViewAll7 = view.findViewById(R.id.tvViewAll7);
+        tvViewAll8 = view.findViewById(R.id.tvViewAll8);
+        tvViewAll9 = view.findViewById(R.id.tvViewAll9);
+        tvViewAll10 = view.findViewById(R.id.tvViewAll10);
+
+        tvViewAll1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                launchGamelistFragment(TOP_RATED, "Top Rated");
+            }
+        });
+
+        tvViewAll2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                launchGamelistFragment(GAMES_LAST_MONTH, "This Month");
+            }
+        });
+
+        tvViewAll3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                launchGamelistFragment(TOP_THIS_YEAR, "This Year");
+            }
+        });
+
+        tvViewAll4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                launchGamelistFragment(ALL_TIME_POPULAR, "All Time Greatest");
+            }
+        });
+
+        tvViewAll5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                launchGamelistFragment(UPCOMING_GAMES, "Upcoming");
+            }
+        });
+
+        tvViewAll6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                launchGamelistFragment(PC_GAMES, "PC Games");
+            }
+        });
+
+        tvViewAll7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                launchGamelistFragment(PS_GAMES, "Play Station Games");
+            }
+        });
+
+        tvViewAll8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                launchGamelistFragment(XBOX_GAMES, "X-Box Games");
+            }
+        });
+
+        tvViewAll9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                launchGamelistFragment(ANDROID_GAMES, "Android Games");
+            }
+        });
+
+        tvViewAll10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                launchGamelistFragment(IOS_GAMES, "IOS Games");
+            }
+        });
 
         linearHome = view.findViewById(R.id.linearHome);
         shimmerFrameLayout = view.findViewById(R.id.shimmerLayoutHome);
@@ -240,6 +337,20 @@ public class HomeFragment extends Fragment {
         rvIosGames.setAdapter(gamesAdapter10);
 
         makeGameRequest(IOS_GAMES, ios, gamesAdapter10);
+    }
+
+    private void launchGamelistFragment(String Url, String name) {
+        fragmentManager = ((AppCompatActivity)getContext()).getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putString("Url", Url);
+        bundle.putString("Name", name);
+
+        Fragment fragment = new GamelistFragment();
+        fragment.setArguments(bundle);
+        fragmentManager.beginTransaction()
+                .replace(R.id.flContainer, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     // Make rawg api get request for coracle
