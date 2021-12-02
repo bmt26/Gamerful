@@ -94,6 +94,7 @@ public class ComposeReviewFragment extends Fragment {
         ratingBar = view.findViewById(R.id.ratingBar);
         ivImage = view.findViewById(R.id.ivImage);
 
+        ratingBar.setStepSize(1.0F);
         user = ParseUser.getCurrentUser();
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +107,7 @@ public class ComposeReviewFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                starRating = ratingBar.getNumStars();
+                starRating = (int)ratingBar.getRating();
                 comment = etComment.getText().toString();
                 if(comment.isEmpty()) {
                     Toast.makeText(getContext(), "Please enter a comment", Toast.LENGTH_SHORT).show();
