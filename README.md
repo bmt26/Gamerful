@@ -361,7 +361,6 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    - [X] Star Rating
    - [X] Comment
    - [X] Uploaded Game Image, if any
- - [X] User will be able to click on a game to see its details. Details page will include the following:
 - [ ] From search page a user can create search to get relevant results for:
    - [ ] Reviews
    - [ ] Games
