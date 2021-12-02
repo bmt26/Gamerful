@@ -25,6 +25,7 @@ import com.example.gamezone.Adapters.GamesAdapter;
 import com.example.gamezone.BuildConfig;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Games;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,6 +71,8 @@ public class HomeFragment extends Fragment {
     SliderAdapter slideAdapter;
     ViewPager2 pager2;
     TextView[] dots;
+    LinearLayout linearHome;
+    ShimmerFrameLayout shimmerFrameLayout;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -97,6 +100,11 @@ public class HomeFragment extends Fragment {
         xBox = new ArrayList<>();
         android = new ArrayList<>();
         ios = new ArrayList<>();
+
+        linearHome = view.findViewById(R.id.linearHome);
+        shimmerFrameLayout = view.findViewById(R.id.shimmerLayoutHome);
+
+        shimmerFrameLayout.startShimmer();
 
         // Top Games this week
         dotsLayout = view.findViewById(R.id.dots_container);
@@ -271,6 +279,10 @@ public class HomeFragment extends Fragment {
                     JSONArray results = jsonObject.getJSONArray("results");
                     games.addAll(Games.fromJsonArray(results));
                     adapter.notifyDataSetChanged();
+                    if(url.equals(IOS_GAMES)) {
+                        shimmerFrameLayout.setVisibility(View.GONE);
+                        linearHome.setVisibility(View.VISIBLE);
+                    }
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit JSON exception", e);
                     e.printStackTrace();
