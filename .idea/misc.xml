@@ -69,6 +69,12 @@
         <entry key="..\:/Users/chira/AndroidStudioProjects/GameZone/app/src/main/res/layout/activity_details.xml" value="0.4" />
         <entry key="..\:/Users/chira/AndroidStudioProjects/GameZone/app/src/main/res/layout/fragment_details.xml" value="0.33" />
         <entry key="..\:/Users/chira/AndroidStudioProjects/GameZone/app/src/main/res/layout/fragment_login.xml" value="0.1171875" />
+        <entry key="..\:/Users/mtemp/Dev/AndroidStudioProjects/Gamerful/app/src/main/res/drawable/ic_arrow_left.xml" value="0.2703125" />
+        <entry key="..\:/Users/mtemp/Dev/AndroidStudioProjects/Gamerful/app/src/main/res/layout/fragment_compose_review.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/mtemp/Dev/AndroidStudioProjects/Gamerful/app/src/main/res/layout/fragment_edit_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/mtemp/Dev/AndroidStudioProjects/Gamerful/app/src/main/res/layout/fragment_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/mtemp/Dev/AndroidStudioProjects/Gamerful/app/src/main/res/layout/fragment_review.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/mtemp/Dev/AndroidStudioProjects/Gamerful/app/src/main/res/layout/item_review.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
