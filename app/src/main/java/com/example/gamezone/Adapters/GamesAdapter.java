@@ -77,8 +77,6 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> 
         public void bind(Games game) {
             Glide.with(context)
                     .load(game.getBackgroundImage())
-                    .centerCrop()
-                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(14)))
                     .into(ivGamePoster);
 
             tvTitle.setText(game.getName());

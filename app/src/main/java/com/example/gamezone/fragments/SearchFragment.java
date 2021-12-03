@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.KeyEvent;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.gamezone.Adapters.GenreAdapter;
 import com.example.gamezone.BuildConfig;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Games;
@@ -46,8 +49,10 @@ public class SearchFragment extends Fragment {
 
     List<Genres> genres;
 
-    TextView tvTest;
     EditText etSearch;
+    RecyclerView rvGenrelist;
+
+    GenreAdapter adapter;
 
     FragmentManager fragmentManager;
 
@@ -72,8 +77,8 @@ public class SearchFragment extends Fragment {
 
         genres = new ArrayList<>();
 
-        tvTest = view.findViewById(R.id.tvTest);
         etSearch = view.findViewById(R.id.etSearch);
+        rvGenrelist = view.findViewById(R.id.rvGenrelist);
 
         etSearch.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
@@ -88,12 +93,10 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        tvTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchGamelistFragment(action_url, "Action");
-            }
-        });
+        adapter = new GenreAdapter(getContext(), genres);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
+        rvGenrelist.setLayoutManager(gridLayoutManager);
+        rvGenrelist.setAdapter(adapter);
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(URL, new JsonHttpResponseHandler() {
@@ -103,6 +106,7 @@ public class SearchFragment extends Fragment {
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
                     genres.addAll(Genres.fromJsonArray(results));
+                    adapter.notifyDataSetChanged();
                     Log.i(TAG, "Results: " + results);
                     Log.i(TAG, "Results: " + genres.get(0).getBackgroundImage());
                 } catch (JSONException e) {
@@ -117,20 +121,6 @@ public class SearchFragment extends Fragment {
             }
         });
 
-    }
-
-    private void launchGamelistFragment(String Url, String name) {
-        fragmentManager = ((AppCompatActivity)getContext()).getSupportFragmentManager();
-        Bundle bundle = new Bundle();
-        bundle.putString("Url", Url);
-        bundle.putString("Name", name);
-
-        Fragment fragment = new GamelistFragment();
-        fragment.setArguments(bundle);
-        fragmentManager.beginTransaction()
-                .replace(R.id.flContainer, fragment)
-                .addToBackStack(null)
-                .commit();
     }
 
     private void launchSearchlistFragment(String query) {
