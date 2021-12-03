@@ -1,11 +1,13 @@
 package com.example.gamezone.fragments;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,6 +59,8 @@ public class DetailsFragment extends Fragment {
     int metacritic;
     double ratings;
 
+    Boolean expanded;
+
     List<Screenshots> screenshots;
     List<Stores> stores;
 
@@ -76,6 +81,7 @@ public class DetailsFragment extends Fragment {
     Button reviewBtn;
     ShimmerFrameLayout shimmerFrameLayout;
     ConstraintLayout scrollView2;
+    Button btnSeeMore;
 
     public static final String TAG = "DetailsFragment";
     public static final String API_KEY = BuildConfig.RAWG_KEY;
@@ -98,6 +104,8 @@ public class DetailsFragment extends Fragment {
         screenshots = new ArrayList<>();
         stores = new ArrayList<>();
 
+        expanded = false;
+
         imgGame = view.findViewById(R.id.imgGame);
         gameName = view.findViewById(R.id.gameName);
         gameGenre = view.findViewById(R.id.gameGenre);
@@ -115,6 +123,7 @@ public class DetailsFragment extends Fragment {
         tvMetaScore = view.findViewById(R.id.tvMetaScore);
         shimmerFrameLayout = view.findViewById(R.id.shimmerLayout);
         scrollView2 = view.findViewById(R.id.scrollView2);
+        btnSeeMore = view.findViewById(R.id.btnSeeMore);
 
         shimmerFrameLayout.startShimmer();
 
@@ -185,6 +194,34 @@ public class DetailsFragment extends Fragment {
                     tvAgeRating.setText(esrbRating);
                     tvPublisher.setText(publisher);
                     tvMetaScore.setText(String.valueOf(metacritic));
+
+                    tvDescription.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            if (tvDescription.getLineCount() >= 7 && !expanded) {
+                                btnSeeMore.setVisibility(View.VISIBLE);
+
+                            }
+                        }
+                    });
+
+                    btnSeeMore.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+
+                            if (!expanded) {
+                                expanded = true;
+                                ObjectAnimator animation = ObjectAnimator.ofInt(tvDescription, "maxLines", 40);
+                                animation.setDuration(100).start();
+                                btnSeeMore.setText("Show Less...");
+                            } else {
+                                expanded = false;
+                                ObjectAnimator animation = ObjectAnimator.ofInt(tvDescription, "maxLines", 7);
+                                animation.setDuration(100).start();
+                                btnSeeMore.setText("Show More...");
+                            }
+
+                        }
+                    });
 
                     switch (esrbRating) {
                         case "Everyone":
