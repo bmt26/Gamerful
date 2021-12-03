@@ -59,7 +59,7 @@ public class SearchlistFragment extends Fragment {
 
         Bundle bundle = this.getArguments();
         query = bundle.getString("query");
-        String url = BASE_URL + "&" + query;
+        String url = BASE_URL + "&search=" + query;
 
         games = new ArrayList<>();
         allReviews = new ArrayList<>();
