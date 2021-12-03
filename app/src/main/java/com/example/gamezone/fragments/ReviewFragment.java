@@ -1,7 +1,6 @@
 package com.example.gamezone.fragments;
 
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,7 +23,6 @@ import com.example.gamezone.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +83,7 @@ public class ReviewFragment extends Fragment {
                 reviewsAdapter.notifyDataSetChanged();
             }
         });
-        rvReviews = view.findViewById(R.id.rvReviews);
+        rvReviews = view.findViewById(R.id.rbReviews);
         parentsReviews = new ArrayList<>();
         kidsReviews = new ArrayList<>();
         reviewsAdapter = new ReviewsAdapter(getContext(), parentsReviews);
