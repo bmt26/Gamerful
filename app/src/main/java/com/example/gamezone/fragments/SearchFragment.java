@@ -9,9 +9,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -44,6 +47,7 @@ public class SearchFragment extends Fragment {
     List<Genres> genres;
 
     TextView tvTest;
+    EditText etSearch;
 
     FragmentManager fragmentManager;
 
@@ -69,6 +73,20 @@ public class SearchFragment extends Fragment {
         genres = new ArrayList<>();
 
         tvTest = view.findViewById(R.id.tvTest);
+        etSearch = view.findViewById(R.id.etSearch);
+
+        etSearch.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    String query = String.valueOf(etSearch.getText());
+                    launchSearchlistFragment(query);
+                    etSearch.getText().clear();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         tvTest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +126,19 @@ public class SearchFragment extends Fragment {
         bundle.putString("Name", name);
 
         Fragment fragment = new GamelistFragment();
+        fragment.setArguments(bundle);
+        fragmentManager.beginTransaction()
+                .replace(R.id.flContainer, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private void launchSearchlistFragment(String query) {
+        fragmentManager = ((AppCompatActivity)getContext()).getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putString("query", query);
+
+        Fragment fragment = new SearchlistFragment();
         fragment.setArguments(bundle);
         fragmentManager.beginTransaction()
                 .replace(R.id.flContainer, fragment)
