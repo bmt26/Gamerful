@@ -14,6 +14,7 @@ public class Reviews extends ParseObject {
     public static final String KEY_COMMENT = "comment";
     public static final String KEY_GAME = "game";
     public static final String KEY_CREATED_KEY = "createdAt";
+    public static final String KEY_SLUG = "slug";
 
     public ParseUser getUser() {
         return getParseUser(KEY_USER);
@@ -55,4 +56,7 @@ public class Reviews extends ParseObject {
         put(KEY_GAME, game);
     }
 
+    public String getSlug() { return KEY_SLUG; }
+
+    public void setSlug(String slug) { put(KEY_SLUG, slug); }
 }

@@ -92,9 +92,11 @@ public class SearchlistFragment extends Fragment {
     }
 
     private void queryReviews(String game) {
+        game = game.split(":")[0].replaceAll("[^a-zA-Z]", "").toLowerCase();
+        Log.d(TAG, game);
         ParseQuery<Reviews> query = ParseQuery.getQuery(Reviews.class);
         query.include(Reviews.KEY_USER);
-        query.whereEqualTo("game", game);
+        query.whereEqualTo("slug", game);
         query.setLimit(20);
         query.addDescendingOrder(Reviews.KEY_CREATED_KEY);
         query.findInBackground(new FindCallback<Reviews>() {
@@ -107,7 +109,7 @@ public class SearchlistFragment extends Fragment {
                 allReviews.clear();
                 allReviews.addAll(reviews);
 
-                Log.d(TAG, "All Reviews: " + allReviews.get(0).getComment());
+                Log.d(TAG, "All Reviews: " + allReviews);
             }
         });
     }

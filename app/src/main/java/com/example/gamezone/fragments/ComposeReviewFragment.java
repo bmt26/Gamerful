@@ -130,9 +130,12 @@ public class ComposeReviewFragment extends Fragment {
 
     private void addReview(ParseUser user, String game, String comment, int starRating) {
 
+        String slug = game.split(":")[0].replaceAll("[^a-zA-Z]", "").toLowerCase();
+
         Reviews review = new Reviews();
         review.setUser(user);
         review.setGame(game);
+        review.setSlug(slug);
         review.setStartRating(starRating);
         review.setComment(comment);
 
