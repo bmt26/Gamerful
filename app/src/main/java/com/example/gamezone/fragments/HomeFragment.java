@@ -340,6 +340,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void launchGamelistFragment(String Url, String name) {
+        int index=Url.lastIndexOf('=');
+        Url = Url.substring(0, index) + "=40";
         fragmentManager = ((AppCompatActivity)getContext()).getSupportFragmentManager();
         Bundle bundle = new Bundle();
         bundle.putString("Url", Url);

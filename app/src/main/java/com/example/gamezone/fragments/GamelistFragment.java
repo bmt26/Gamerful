@@ -81,9 +81,6 @@ public class GamelistFragment extends Fragment {
             }
         });
 
-        int index=url.lastIndexOf('=');
-        url = url.substring(0, index) + "=40";
-
         Log.i(TAG, url);
 
         recyclerView = view.findViewById(R.id.rvGameList);

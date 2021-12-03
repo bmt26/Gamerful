@@ -4,12 +4,15 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -36,7 +39,13 @@ public class SearchFragment extends Fragment {
     public static final String API_KEY = BuildConfig.RAWG_KEY;
     public static final String URL = "https://api.rawg.io/api/genres?key=" + API_KEY;
 
+    public static final String action_url = "https://rawg.io/api/games?disable_user_platforms=true&page=1&page_size=20&filter=true&comments=true&key=" + API_KEY + "&genres=4";
+
     List<Genres> genres;
+
+    TextView tvTest;
+
+    FragmentManager fragmentManager;
 
 
     public SearchFragment() {
@@ -55,7 +64,18 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        final FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+
         genres = new ArrayList<>();
+
+        tvTest = view.findViewById(R.id.tvTest);
+
+        tvTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchGamelistFragment(action_url, "Action");
+            }
+        });
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(URL, new JsonHttpResponseHandler() {
@@ -79,5 +99,19 @@ public class SearchFragment extends Fragment {
             }
         });
 
+    }
+
+    private void launchGamelistFragment(String Url, String name) {
+        fragmentManager = ((AppCompatActivity)getContext()).getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putString("Url", Url);
+        bundle.putString("Name", name);
+
+        Fragment fragment = new GamelistFragment();
+        fragment.setArguments(bundle);
+        fragmentManager.beginTransaction()
+                .replace(R.id.flContainer, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 }
