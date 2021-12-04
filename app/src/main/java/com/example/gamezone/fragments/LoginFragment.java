@@ -35,6 +35,8 @@ public class LoginFragment extends Fragment {
     private ProgressBar signupProgressBar;
     private TextView signupTextView;
 
+    TextView tvLoginErr;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,8 @@ public class LoginFragment extends Fragment {
 
         etUsername = view.findViewById(R.id.etUsername);
         etPassword = view.findViewById(R.id.etPassword);
+
+        tvLoginErr = view.findViewById(R.id.tvLoginErr);
 
 
         view.findViewById(R.id.btnLogin).setOnClickListener(new View.OnClickListener() {
@@ -95,7 +99,7 @@ public class LoginFragment extends Fragment {
             public void done(ParseUser user, ParseException e) {
                 if(e != null) {
                     Log.e(TAG, "Issue with login ", e);
-                    Toast.makeText(getContext(), "Invalid username or password", Toast.LENGTH_SHORT).show();
+                    tvLoginErr.setVisibility(View.VISIBLE);
                     return;
                 }
                 goMainActivity();

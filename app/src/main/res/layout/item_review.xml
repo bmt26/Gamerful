@@ -47,13 +47,17 @@
 
     <TextView
         android:id="@+id/tvGame"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="15dp"
+        android:ellipsize="end"
         android:fontFamily="@font/nunito_bold"
+        android:maxLines="2"
         android:textColor="@color/white"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivProfilePicture"
         tools:text="Fortnite" />
@@ -85,6 +89,23 @@
         app:layout_constraintTop_toBottomOf="@+id/rbRating"
         tools:text="In all due honestly, this game is one of the best made." />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSeeMore"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/nunito_bold"
+        android:gravity="start"
+        android:padding="0dp"
+        android:text="Show More..."
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvComment"
+        tools:visibility="visible" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
@@ -97,7 +118,7 @@
         app:cardCornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvComment">
+        app:layout_constraintTop_toBottomOf="@+id/btnSeeMore">
 
         <ImageView
             android:id="@+id/ivPostedPicture"

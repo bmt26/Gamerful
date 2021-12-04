@@ -1,9 +1,12 @@
 package com.example.gamezone.Adapters;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -15,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.gamezone.BuildConfig;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Reviews;
 import com.parse.ParseFile;
@@ -59,9 +63,15 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         private TextView tvComment;
         private ImageView ivPostedPicture;
         private CardView cardView;
+        private Button btnSeeMore;
+
+        private Boolean expanded;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            expanded = false;
+
             ivProfilePicture = itemView.findViewById(R.id.ivProfilePicture);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
@@ -70,6 +80,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
             tvComment = itemView.findViewById(R.id.tvComment);
             ivPostedPicture = itemView.findViewById(R.id.ivPostedPicture);
             cardView = itemView.findViewById(R.id.cardView);
+            btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
         }
 
         public void bind(Reviews review) {
@@ -106,6 +117,34 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
             tvGame.setText(review.getGame());
             rbRating.setRating(review.getStarRating());
             tvComment.setText(review.getComment());
+
+            tvComment.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    if (tvComment.getLineCount() > 7 && !expanded) {
+                        btnSeeMore.setVisibility(View.VISIBLE);
+
+                    }
+                }
+            });
+
+            btnSeeMore.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    if (!expanded) {
+                        expanded = true;
+                        ObjectAnimator animation = ObjectAnimator.ofInt(tvComment, "maxLines", 40);
+                        animation.setDuration(100).start();
+                        btnSeeMore.setText("Show Less...");
+                    } else {
+                        expanded = false;
+                        ObjectAnimator animation = ObjectAnimator.ofInt(tvComment, "maxLines", 7);
+                        animation.setDuration(100).start();
+                        btnSeeMore.setText("Show More...");
+                    }
+
+                }
+            });
         }
     }
 

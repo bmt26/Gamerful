@@ -198,7 +198,7 @@ public class DetailsFragment extends Fragment {
                     tvDescription.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                         @Override
                         public void onGlobalLayout() {
-                            if (tvDescription.getLineCount() >= 7 && !expanded) {
+                            if (tvDescription.getLineCount() > 7 && !expanded) {
                                 btnSeeMore.setVisibility(View.VISIBLE);
 
                             }

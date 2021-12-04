@@ -3,47 +3,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_item"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/ivGameImage"
-        android:layout_width="145dp"
-        android:layout_height="85.16dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvGameImage"
+        android:layout_width="149dp"
+        android:layout_height="89dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="13dp"
+        app:cardCornerRadius="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivGameImage"
+            android:layout_width="149dp"
+            android:layout_height="89dp"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tvGameTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="15dp"
         android:ellipsize="end"
         android:fontFamily="@font/nunito_bold"
         android:maxLines="1"
         android:text="TextView"
         android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@+id/ivGameImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cvGameImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvGameGenres"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:ellipsize="end"
         android:fontFamily="@font/nunito_semibold"
         android:maxLines="1"
         android:text="TextView"
         android:textColor="@color/text_gray"
         android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/ivGameImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cvGameImage"
         app:layout_constraintTop_toBottomOf="@+id/tvGameTitle" />
 
     <TextView
@@ -57,6 +70,6 @@
         android:text="TextView"
         android:textColor="@color/white"
         android:textSize="13sp"
-        app:layout_constraintStart_toEndOf="@+id/ivGameImage"
+        app:layout_constraintStart_toEndOf="@+id/cvGameImage"
         app:layout_constraintTop_toBottomOf="@+id/tvGameGenres" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,6 +55,7 @@ public class SearchlistFragment extends Fragment {
     RecyclerView rvSearchReviews;
     RecyclerView rvSearchGames;
 
+    TextView tvNoResults;
     TextView tvPageTitle;
 
     List<Games> games;
@@ -94,6 +95,7 @@ public class SearchlistFragment extends Fragment {
         rvSearchReviews = view.findViewById(R.id.rvSearchReviews);
 
         tvPageTitle = view.findViewById(R.id.tvPageTitle);
+        tvNoResults = view.findViewById(R.id.tvNoResults);
 
         gamelistAdapter = new GamelistAdapter(getContext(), games);
         rvSearchGames.setAdapter(gamelistAdapter);
@@ -116,6 +118,12 @@ public class SearchlistFragment extends Fragment {
                 rbReviews.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                 rvSearchGames.setVisibility(View.VISIBLE);
                 rvSearchReviews.setVisibility(View.GONE);
+                if(games.size() == 0) {
+                    tvNoResults.setVisibility(View.VISIBLE);
+                }
+                else {
+                    tvNoResults.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -130,6 +138,12 @@ public class SearchlistFragment extends Fragment {
                 rvSearchReviews.setAdapter(reviewsAdapter);
                 rvSearchReviews.setLayoutManager(new LinearLayoutManager(getContext()));
                 reviewsAdapter.notifyDataSetChanged();
+                if(allReviews.size() == 0) {
+                    tvNoResults.setVisibility(View.VISIBLE);
+                }
+                else {
+                    tvNoResults.setVisibility(View.GONE);
+                }
             }
         });
 

@@ -11,5 +11,7 @@
     <color name="des_gray">#B5B5B5</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
     <color name="card_gray">#2E2E2E</color>
-    <color name="shimmer_placeholder">#666666</color>
+    <color name="header">#1A1A1A</color>
+    <color name="shimmer_placeholder">#3C3C3C</color>
+    <color name="red">#F10606</color>
 </resources>

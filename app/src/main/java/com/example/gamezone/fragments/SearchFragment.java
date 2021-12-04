@@ -107,8 +107,6 @@ public class SearchFragment extends Fragment {
                     JSONArray results = jsonObject.getJSONArray("results");
                     genres.addAll(Genres.fromJsonArray(results));
                     adapter.notifyDataSetChanged();
-                    Log.i(TAG, "Results: " + results);
-                    Log.i(TAG, "Results: " + genres.get(0).getBackgroundImage());
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit JSON exception", e);
                     e.printStackTrace();

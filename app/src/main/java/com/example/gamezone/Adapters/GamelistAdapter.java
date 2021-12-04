@@ -79,8 +79,6 @@ public class GamelistAdapter extends RecyclerView.Adapter<GamelistAdapter.ViewHo
         public void bind(Games game) {
             Glide.with(context)
                     .load(game.getBackgroundImage())
-                    .centerCrop()
-                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(14)))
                     .into(ivGameImage);
 
             tvGameTitle.setText(game.getName());

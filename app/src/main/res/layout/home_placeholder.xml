@@ -47,17 +47,122 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv3"
+                    android:layout_width="230dp"
+                    android:layout_height="123dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/shimmer_placeholder"
+                    app:cardBackgroundColor="@color/shimmer_placeholder"
+                    app:cardCornerRadius="13dp" />
+
+                <TextView
+                    android:id="@+id/tv6"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cv3"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/shimmer_placeholder" />
+
+                <TextView
+                    android:id="@+id/tv7"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv6"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/shimmer_placeholder"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tv8"
+                    android:layout_width="47dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cv3"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_toEndOf="@+id/tv6"
+                    android:background="@color/shimmer_placeholder" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv4"
+                    android:layout_width="230dp"
+                    android:layout_height="123dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/cv3"
+                    android:background="@color/shimmer_placeholder"
+                    app:cardBackgroundColor="@color/shimmer_placeholder"
+                    app:cardCornerRadius="13dp" />
+
+                <TextView
+                    android:id="@+id/tv9"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cv3"
+                    android:layout_alignStart="@+id/cv4"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/shimmer_placeholder" />
+
+                <TextView
+                    android:id="@+id/tv10"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv6"
+                    android:layout_alignStart="@+id/cv4"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/shimmer_placeholder"
+                    android:textSize="10sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="20dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="20dp">
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/shimmer_placeholder"
+                    android:textAlignment="viewStart"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="0dp"
+                    android:background="@color/shimmer_placeholder"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="210dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv"
-                    android:layout_width="245dp"
-                    android:layout_height="145dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="230dp"
+                    android:layout_height="123dp"
                     android:layout_marginStart="15dp"
-                    app:cardCornerRadius="13dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/shimmer_placeholder"
-                    app:cardBackgroundColor="@color/shimmer_placeholder" />
+                    app:cardBackgroundColor="@color/shimmer_placeholder"
+                    app:cardCornerRadius="13dp" />
 
                 <TextView
                     android:id="@+id/tv1"
@@ -90,8 +195,8 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv2"
-                    android:layout_width="245dp"
-                    android:layout_height="145dp"
+                    android:layout_width="230dp"
+                    android:layout_height="123dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_toEndOf="@+id/cv"
@@ -155,71 +260,71 @@
                 android:layout_height="210dp">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cv3"
-                    android:layout_width="245dp"
-                    android:layout_height="145dp"
-                    android:layout_marginTop="10dp"
+                    android:id="@+id/cv7"
+                    android:layout_width="230dp"
+                    android:layout_height="123dp"
                     android:layout_marginStart="15dp"
-                    app:cardCornerRadius="13dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/shimmer_placeholder"
-                    app:cardBackgroundColor="@color/shimmer_placeholder" />
+                    app:cardBackgroundColor="@color/shimmer_placeholder"
+                    app:cardCornerRadius="13dp" />
 
                 <TextView
-                    android:id="@+id/tv6"
+                    android:id="@+id/tv11"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cv3"
+                    android:layout_below="@+id/cv7"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/shimmer_placeholder" />
 
                 <TextView
-                    android:id="@+id/tv7"
+                    android:id="@+id/tv12"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv6"
+                    android:layout_below="@+id/tv11"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="5dp"
                     android:background="@color/shimmer_placeholder"
                     android:textSize="10sp" />
 
                 <TextView
-                    android:id="@+id/tv8"
+                    android:id="@+id/tv13"
                     android:layout_width="47dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cv3"
+                    android:layout_below="@+id/cv7"
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="15dp"
-                    android:layout_toEndOf="@+id/tv6"
+                    android:layout_toEndOf="@+id/tv11"
                     android:background="@color/shimmer_placeholder" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cv4"
-                    android:layout_width="245dp"
-                    android:layout_height="145dp"
+                    android:id="@+id/cv6"
+                    android:layout_width="230dp"
+                    android:layout_height="123dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@+id/cv3"
+                    android:layout_toEndOf="@+id/cv7"
                     android:background="@color/shimmer_placeholder"
                     app:cardBackgroundColor="@color/shimmer_placeholder"
                     app:cardCornerRadius="13dp" />
 
                 <TextView
-                    android:id="@+id/tv9"
+                    android:id="@+id/tv14"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cv3"
-                    android:layout_alignStart="@+id/cv4"
+                    android:layout_below="@+id/cv7"
+                    android:layout_alignStart="@+id/cv6"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/shimmer_placeholder" />
 
                 <TextView
-                    android:id="@+id/tv10"
+                    android:id="@+id/tv15"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv6"
-                    android:layout_alignStart="@+id/cv4"
+                    android:layout_below="@+id/tv11"
+                    android:layout_alignStart="@+id/cv6"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="5dp"
                     android:background="@color/shimmer_placeholder"
