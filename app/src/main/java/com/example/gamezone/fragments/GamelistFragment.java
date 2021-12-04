@@ -22,6 +22,7 @@ import com.example.gamezone.Adapters.GamelistAdapter;
 import com.example.gamezone.EndlessRecyclerViewScrollListener;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Games;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +44,7 @@ public class GamelistFragment extends Fragment {
 
     RecyclerView recyclerView;
     EndlessRecyclerViewScrollListener scrollListener;
+    ShimmerFrameLayout shimmerLayoutGamelist;
 
     TextView tvPageTitle;
 
@@ -65,6 +67,9 @@ public class GamelistFragment extends Fragment {
         games = new ArrayList<>();
 
         tvPageTitle = view.findViewById(R.id.tvPageTitle);
+        shimmerLayoutGamelist = view.findViewById(R.id.shimmerLayoutGamelist);
+
+        shimmerLayoutGamelist.startShimmer();
 
         final FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
 
@@ -110,7 +115,8 @@ public class GamelistFragment extends Fragment {
                     JSONArray results = jsonObject.getJSONArray("results");
                     games.addAll(Games.fromJsonArray(results));
                     adapter.notifyDataSetChanged();
-                    Log.d(TAG, "onSuccess" + games.size());
+                    shimmerLayoutGamelist.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit JSON exception", e);
                     e.printStackTrace();

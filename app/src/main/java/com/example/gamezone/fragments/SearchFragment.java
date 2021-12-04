@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -51,6 +52,7 @@ public class SearchFragment extends Fragment {
 
     EditText etSearch;
     RecyclerView rvGenrelist;
+    ProgressBar pbSearch;
 
     GenreAdapter adapter;
 
@@ -79,6 +81,9 @@ public class SearchFragment extends Fragment {
 
         etSearch = view.findViewById(R.id.etSearch);
         rvGenrelist = view.findViewById(R.id.rvGenrelist);
+        pbSearch = view.findViewById(R.id.pbSearch);
+
+        pbSearch.setVisibility(View.VISIBLE);
 
         etSearch.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
@@ -107,6 +112,7 @@ public class SearchFragment extends Fragment {
                     JSONArray results = jsonObject.getJSONArray("results");
                     genres.addAll(Genres.fromJsonArray(results));
                     adapter.notifyDataSetChanged();
+                    pbSearch.setVisibility(View.GONE);
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit JSON exception", e);
                     e.printStackTrace();

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -64,6 +65,8 @@ public class SearchlistFragment extends Fragment {
     ReviewsAdapter reviewsAdapter;
     GamelistAdapter gamelistAdapter;
 
+    ProgressBar pgSearchList;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +99,9 @@ public class SearchlistFragment extends Fragment {
 
         tvPageTitle = view.findViewById(R.id.tvPageTitle);
         tvNoResults = view.findViewById(R.id.tvNoResults);
+        pgSearchList = view.findViewById(R.id.pgSearchList);
+
+        pgSearchList.setVisibility(View.VISIBLE);
 
         gamelistAdapter = new GamelistAdapter(getContext(), games);
         rvSearchGames.setAdapter(gamelistAdapter);
@@ -138,6 +144,7 @@ public class SearchlistFragment extends Fragment {
                 rvSearchReviews.setAdapter(reviewsAdapter);
                 rvSearchReviews.setLayoutManager(new LinearLayoutManager(getContext()));
                 reviewsAdapter.notifyDataSetChanged();
+                pgSearchList.setVisibility(View.GONE);
                 if(allReviews.size() == 0) {
                     tvNoResults.setVisibility(View.VISIBLE);
                 }
@@ -158,6 +165,7 @@ public class SearchlistFragment extends Fragment {
                     games.addAll(Games.fromJsonArray(results));
                     Log.i(TAG, "Search Results:" + results);
                     gamelistAdapter.notifyDataSetChanged();
+                    pgSearchList.setVisibility(View.GONE);
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit JSON exception", e);
                     e.printStackTrace();

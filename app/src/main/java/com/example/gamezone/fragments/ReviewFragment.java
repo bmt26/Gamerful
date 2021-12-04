@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -41,6 +42,7 @@ public class ReviewFragment extends Fragment {
     private RadioGroup rgAge;
     private RadioButton rbParents;
     private RadioButton rbKids;
+    private ProgressBar pbReviews;
 
     public ReviewFragment() {
         // Required empty public constructor
@@ -59,6 +61,9 @@ public class ReviewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rbParents = view.findViewById(R.id.rbParents);
         rbKids = view.findViewById(R.id.rbKids);
+        pbReviews = view.findViewById(R.id.pbReviews);
+
+        pbReviews.setVisibility(View.VISIBLE);
 
         rbParents.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +74,7 @@ public class ReviewFragment extends Fragment {
                 rvReviews.setAdapter(reviewsAdapter);
                 rvReviews.setLayoutManager(new LinearLayoutManager(getContext()));
                 reviewsAdapter.notifyDataSetChanged();
+                pbReviews.setVisibility(View.GONE);
             }
         });
 
@@ -81,6 +87,7 @@ public class ReviewFragment extends Fragment {
                 rvReviews.setAdapter(reviewsAdapter);
                 rvReviews.setLayoutManager(new LinearLayoutManager(getContext()));
                 reviewsAdapter.notifyDataSetChanged();
+                pbReviews.setVisibility(View.GONE);
             }
         });
         rvReviews = view.findViewById(R.id.rbReviews);
