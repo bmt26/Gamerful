@@ -361,9 +361,9 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    - [X] Star Rating
    - [X] Comment
    - [X] Uploaded Game Image, if any
-- [ ] From search page a user can create search to get relevant results for:
-   - [ ] Reviews
-   - [ ] Games
+- [X] From search page a user can create search to get relevant results for:
+   - [X] Reviews
+   - [X] Games
 
 <img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Sprint3-Walkthorugh.gif" width=350>
    
