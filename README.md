@@ -38,15 +38,15 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    - [X] Review page
    - [X] Profile Page
  - [X] In home page user will be able to browse through different list of games.
- - [ ] In search page user will be able to search for a specific game or game review.
- - [ ] On review page user will be able to see or post game review.
+ - [X] In search page user will be able to search for a specific game or game review.
+ - [X] On review page user will be able to see or post game review.
  - [X] On profile page user will be able to edit his/her profile, see their posted reviews and logout.
  - [X] User will be able to click on a game to see its details. Details page will include the following:
    - [X] Game related images
    - [X] Game title / description
    - [X] Game info (release date, publisher, user rating, ESRB rating, etc)
    - [X] Direct link for where to buy the game?
- - [ ] User will be able to post a rating.
+ - [X] User will be able to post a rating.
  - [X] Make an app logo / splash screen.
 
 
@@ -361,9 +361,9 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    - [X] Star Rating
    - [X] Comment
    - [X] Uploaded Game Image, if any
-- [ ] From search page a user can create search to get relevant results for:
-   - [ ] Reviews
-   - [ ] Games
+- [X] From search page a user can create search to get relevant results for:
+   - [X] Reviews
+   - [X] Games
 
 <img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Sprint3-Walkthorugh.gif" width=350>
    
