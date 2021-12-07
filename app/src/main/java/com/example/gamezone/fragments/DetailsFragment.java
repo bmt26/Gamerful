@@ -142,6 +142,8 @@ public class DetailsFragment extends Fragment {
         String store_url = BASE_URL + String.valueOf(gameId) + "/stores?key=" + API_KEY;
         String screenshots_url = BASE_URL + String.valueOf(gameId) + "/screenshots?key=" + API_KEY;
 
+        Log.d(TAG, store_url);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = view.findViewById(R.id.rvScreenshots);
         recyclerView.setLayoutManager(layoutManager);
@@ -264,6 +266,7 @@ public class DetailsFragment extends Fragment {
                             try {
                                 JSONArray results = jsonObjectStore.getJSONArray("results");
                                 JSONArray store_list = jsonObject.getJSONArray("stores");
+                                Log.d(TAG, "List: " + store_list);
                                 stores.addAll(Stores.fromJsonArray(results, store_list));
 
                                 if(stores.size() == 0) {

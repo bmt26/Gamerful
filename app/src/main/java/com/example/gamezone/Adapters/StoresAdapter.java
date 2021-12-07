@@ -59,6 +59,9 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
         public void bind(Stores store) {
             String store_name = store.getStoreName();
             String store_url = store.getLink();
+
+            Log.d("Store", store_name + " : " + store_url);
+
             int store_icon;
 
             switch (store_name) {
