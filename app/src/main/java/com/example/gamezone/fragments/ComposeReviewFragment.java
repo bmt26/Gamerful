@@ -5,7 +5,6 @@ import static android.app.Activity.RESULT_OK;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -28,14 +27,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.gamezone.MainActivity;
+import com.example.gamezone.progressButtonSubmit.ProgressButtonSubmit;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Reviews;
-import com.example.gamezone.models.User;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-import com.parse.SignUpCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -52,7 +50,6 @@ public class ComposeReviewFragment extends Fragment {
     private static final int RESULT_LOAD_IMG = 402;
 
     private Button btnBack;
-    private Button btnSubmit;
     private Button btnAddImage;
     private RatingBar ratingBar;
     private EditText etComment;
@@ -88,7 +85,6 @@ public class ComposeReviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         btnBack = view.findViewById(R.id.btnBack);
-        btnSubmit = view.findViewById(R.id.btnSubmit);
         btnAddImage = view.findViewById(R.id.btnAddImage);
         etComment = view.findViewById(R.id.etComment);
         ratingBar = view.findViewById(R.id.ratingBar);
@@ -97,6 +93,8 @@ public class ComposeReviewFragment extends Fragment {
         ratingBar.setStepSize(1.0F);
         user = ParseUser.getCurrentUser();
 
+        ProgressButtonSubmit progressButtonSubmit = new ProgressButtonSubmit(getContext(), view);
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +102,7 @@ public class ComposeReviewFragment extends Fragment {
             }
         });
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.progressBtnSubmit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 starRating = (int)ratingBar.getRating();
@@ -113,7 +111,8 @@ public class ComposeReviewFragment extends Fragment {
                     Toast.makeText(getContext(), "Please enter a comment", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                addReview(user, game, comment, starRating);
+                addReview(user, game, comment, starRating, progressButtonSubmit);
+                progressButtonSubmit.buttonActivated();
             }
         });
 
@@ -128,7 +127,7 @@ public class ComposeReviewFragment extends Fragment {
         });
     }
 
-    private void addReview(ParseUser user, String game, String comment, int starRating) {
+    private void addReview(ParseUser user, String game, String comment, int starRating, ProgressButtonSubmit progressButtonSubmit) {
 
         String slug = game.split(":")[0].replaceAll("[^a-zA-Z]", "").toLowerCase();
 
@@ -151,8 +150,10 @@ public class ComposeReviewFragment extends Fragment {
                             public void done(ParseException e) {
                                 if (e != null) {
                                     Toast.makeText(getContext(), "Error while posting review!", Toast.LENGTH_SHORT).show();
+                                    progressButtonSubmit.buttonReset();
                                 }
                                 goMainActivity();
+                                progressButtonSubmit.buttonReset();
                             }
                         });
                     }

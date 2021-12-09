@@ -29,6 +29,8 @@ import com.bumptech.glide.Glide;
 import com.example.gamezone.MainActivity;
 import com.example.gamezone.R;
 import com.example.gamezone.models.User;
+import com.example.gamezone.progressButtonSubmit.ProgressButtonLogin;
+import com.example.gamezone.progressButtonSubmit.ProgressButtonSignup;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.SaveCallback;
@@ -88,6 +90,8 @@ public class SignupFragment extends Fragment {
 
         final FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
 
+        ProgressButtonSignup progressButton = new ProgressButtonSignup(getContext(), view);
+
         Glide.with(getContext())
                 .load(R.drawable.ic_default_figure)
                 .into(ivAddPicture);
@@ -109,7 +113,7 @@ public class SignupFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.signupBtn).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.progressBtnSignup).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 username = etAddUsername.getText().toString();
@@ -138,13 +142,14 @@ public class SignupFragment extends Fragment {
                     Toast.makeText(getContext(), "Your password does not match", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                 addUser(username, role, password);
+                progressButton.buttonActivated();
+                addUser(username, role, password, progressButton);
             }
         });
 
     }
 
-    private void addUser(String username, String role, String password) {
+    private void addUser(String username, String role, String password, ProgressButtonSignup progressButton) {
 
         final ParseFile file = new ParseFile(photoFile);
 
@@ -162,8 +167,10 @@ public class SignupFragment extends Fragment {
                         public void done(ParseException e) {
                             if (e != null) {
                                 Toast.makeText(getContext(), "Error while signing up!", Toast.LENGTH_SHORT).show();
+                                progressButton.buttonReset();
                             }
                             goMainActivity();
+                            progressButton.buttonReset();
                         }
                     });
                 }

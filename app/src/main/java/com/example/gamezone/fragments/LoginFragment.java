@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +17,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.gamezone.MainActivity;
+import com.example.gamezone.progressButtonSubmit.ProgressButtonSubmit;
 import com.example.gamezone.R;
+import com.example.gamezone.progressButtonSubmit.ProgressButtonLogin;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -55,6 +56,8 @@ public class LoginFragment extends Fragment {
 
         final FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
 
+        ProgressButtonLogin progressButton = new ProgressButtonLogin(getContext(), view);
+
         if(ParseUser.getCurrentUser() != null) {
             goMainActivity();
         }
@@ -64,15 +67,16 @@ public class LoginFragment extends Fragment {
 
         tvLoginErr = view.findViewById(R.id.tvLoginErr);
 
-
-        view.findViewById(R.id.btnLogin).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.progressBtnSubmit).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Log.i(TAG, "onClick login button");
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
 
-                loginUser(username, password);
+                loginUser(username, password, progressButton);
+
+                progressButton.buttonActivated();
             }
         });
 
@@ -91,7 +95,7 @@ public class LoginFragment extends Fragment {
         ((AppCompatActivity) getContext()).finish();
     }
 
-    private void loginUser(String username, String password) {
+    private void loginUser(String username, String password, ProgressButtonLogin progressButtonLogin) {
         Log.i(TAG, "Attempting to login user " + username);
 
         ParseUser.logInInBackground(username, password, new LogInCallback() {
@@ -100,8 +104,10 @@ public class LoginFragment extends Fragment {
                 if(e != null) {
                     Log.e(TAG, "Issue with login ", e);
                     tvLoginErr.setVisibility(View.VISIBLE);
+                    progressButtonLogin.buttonReset();
                     return;
                 }
+                progressButtonLogin.buttonReset();
                 goMainActivity();
             }
         });
