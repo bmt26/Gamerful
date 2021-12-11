@@ -14,9 +14,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,6 +54,7 @@ public class DetailsFragment extends Fragment {
     String description;
     String releaseDate;
     String publisher;
+    String clip;
 
     int esrbImage;
 
@@ -82,6 +86,7 @@ public class DetailsFragment extends Fragment {
     ShimmerFrameLayout shimmerFrameLayout;
     ConstraintLayout scrollView2;
     Button btnSeeMore;
+    CardView playTag;
 
     public static final String TAG = "DetailsFragment";
     public static final String API_KEY = BuildConfig.RAWG_KEY;
@@ -124,8 +129,11 @@ public class DetailsFragment extends Fragment {
         shimmerFrameLayout = view.findViewById(R.id.shimmerLayout);
         scrollView2 = view.findViewById(R.id.scrollView2);
         btnSeeMore = view.findViewById(R.id.btnSeeMore);
+        playTag = view.findViewById(R.id.playTag);
 
         shimmerFrameLayout.startShimmer();
+
+        FragmentManager fragmentManager = ((AppCompatActivity)getContext()).getSupportFragmentManager();
 
         Bundle bundle = this.getArguments();
         int gameId = bundle.getInt("Id");
@@ -142,7 +150,7 @@ public class DetailsFragment extends Fragment {
         String store_url = BASE_URL + String.valueOf(gameId) + "/stores?key=" + API_KEY;
         String screenshots_url = BASE_URL + String.valueOf(gameId) + "/screenshots?key=" + API_KEY;
 
-        Log.d(TAG, store_url);
+        Log.d(TAG, details_url);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = view.findViewById(R.id.rvScreenshots);
@@ -173,6 +181,13 @@ public class DetailsFragment extends Fragment {
                     publisher = getPublishers(jsonObject.getJSONArray("publishers"));
                     genres = getGenres(jsonObject.getJSONArray("genres"));
                     playTime = jsonObject.getInt("playtime");
+
+                    try {
+                        clip = jsonObject.getJSONObject("clip").getString("clip");
+                    } catch (JSONException e) {
+                        clip = null;
+                    }
+
                     try {
                         esrbRating = jsonObject.getJSONObject("esrb_rating").getString("name");
                     } catch (JSONException e) {
@@ -196,6 +211,8 @@ public class DetailsFragment extends Fragment {
                     tvAgeRating.setText(esrbRating);
                     tvPublisher.setText(publisher);
                     tvMetaScore.setText(String.valueOf(metacritic));
+
+                    Log.d(TAG, "Clip: " +  clip);
 
                     tvDescription.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                         @Override
@@ -295,6 +312,27 @@ public class DetailsFragment extends Fragment {
                             .load(poster)
                             .centerCrop()
                             .into(imgGame);
+
+                    if(clip != null) {
+                        playTag.setVisibility(View.VISIBLE);
+                        imgGame.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("clip", clip);
+
+                                Fragment fragment = new ClipFragment();
+                                fragment.setArguments(bundle);
+                                fragmentManager.beginTransaction()
+                                        .replace(R.id.flContainer, fragment)
+                                        .addToBackStack(null)
+                                        .commit();
+                            }
+                        });
+                    }
+                    else {
+                        playTag.setVisibility(View.GONE);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
