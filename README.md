@@ -50,11 +50,6 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
  - [X] Make an app logo / splash screen.
 
 
-**Optional Nice-to-have Stories**
-
-* User will be able to use voice search in search bar.
-* Youtube or Twitch gameplay videos available to watch for games.
-
 ### 2. Screen Archetypes
 
 * Login Screen
@@ -366,4 +361,18 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    - [X] Games
 
 <img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Sprint3-Walkthorugh.gif" width=350>
+
+### Sprint 4
+
+**Optional Nice-to-have Stories**
+
+ - [X] Add loading animations
+   - [X] Add loading animation for login button
+   - [X] Add loading animation for signup button
+   - [X] Add loading animation for submit review button
+ - [X] Add video clip for games
+   - [X] Update game model to get clip url
+   - [X] Add new fragment with video view to display game clip
+
+<img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Sprint4-Walkthorugh.gif" width=350>
    
