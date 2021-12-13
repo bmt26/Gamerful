@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.gamezone.Adapters.ReviewsAdapter;
+import com.example.gamezone.EndlessRecyclerViewScrollListener;
 import com.example.gamezone.LoginActivity;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Reviews;
@@ -48,6 +49,7 @@ public class ProfileFragment extends Fragment {
     private List<Reviews> allReviews;
     private RecyclerView rvReviews;
     private ReviewsAdapter reviewsAdapter;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -110,18 +112,31 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+
         rvReviews.setAdapter(reviewsAdapter);
-        rvReviews.setLayoutManager(new LinearLayoutManager(getContext()));
-        queryReviews();
+        rvReviews.setLayoutManager(layoutManager);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                Log.i(TAG, "onLoadMore: " + page);
+                queryReviews(page);
+            }
+        };
+        // Adds the scroll listener to RecyclerView;
+        rvReviews.addOnScrollListener(scrollListener);
+
+        queryReviews(0);
     }
 
-
-
-    private void queryReviews() {
+    private void queryReviews(int maxId) {
+        int numReviews = 2;
         ParseQuery<Reviews> query = ParseQuery.getQuery(Reviews.class);
         query.include(Reviews.KEY_USER);
         query.whereEqualTo(Reviews.KEY_USER, ParseUser.getCurrentUser());
-        query.setLimit(20);
+        query.setLimit(numReviews);
+        query.setSkip(numReviews*maxId);
         query.addDescendingOrder(Reviews.KEY_CREATED_KEY);
         query.findInBackground(new FindCallback<Reviews>() {
             @Override
@@ -130,7 +145,6 @@ public class ProfileFragment extends Fragment {
                     Log.e(TAG, "Issue with getting reviews", e);
                     return;
                 }
-                allReviews.clear();
                 allReviews.addAll(reviews);
                 reviewsAdapter.notifyDataSetChanged();
 

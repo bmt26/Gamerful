@@ -18,6 +18,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.gamezone.Adapters.ReviewsAdapter;
+import com.example.gamezone.EndlessRecyclerViewScrollListener;
 import com.example.gamezone.R;
 import com.example.gamezone.models.Reviews;
 import com.example.gamezone.models.User;
@@ -43,6 +44,7 @@ public class ReviewFragment extends Fragment {
     private RadioButton rbParents;
     private RadioButton rbKids;
     private ProgressBar pbReviews;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     public ReviewFragment() {
         // Required empty public constructor
@@ -90,19 +92,35 @@ public class ReviewFragment extends Fragment {
                 pbReviews.setVisibility(View.GONE);
             }
         });
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+
         rvReviews = view.findViewById(R.id.rbReviews);
         parentsReviews = new ArrayList<>();
         kidsReviews = new ArrayList<>();
         reviewsAdapter = new ReviewsAdapter(getContext(), parentsReviews);
         rvReviews.setAdapter(reviewsAdapter);
-        rvReviews.setLayoutManager(new LinearLayoutManager(getContext()));
-        queryReviews();
+        rvReviews.setLayoutManager(layoutManager);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                Log.i(TAG, "onLoadMore: " + page);
+                queryReviews(page);
+            }
+        };
+        // Adds the scroll listener to RecyclerView;
+        rvReviews.addOnScrollListener(scrollListener);
+
+        queryReviews(0);
     }
 
-    protected void queryReviews() {
+    protected void queryReviews(int maxId) {
+        int numReviews = 2;
         ParseQuery<Reviews> query = ParseQuery.getQuery(Reviews.class);
         query.include(Reviews.KEY_USER);
-        query.setLimit(20);
+        query.setLimit(numReviews);
+        query.setSkip(numReviews*maxId);
         query.addDescendingOrder(Reviews.KEY_CREATED_KEY);
 
         query.findInBackground(new FindCallback<Reviews>() {
@@ -112,8 +130,6 @@ public class ReviewFragment extends Fragment {
                     Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
-                parentsReviews.clear();
-                kidsReviews.clear();
                 for(Reviews review : reviews) {
                     User user = (User)review.getUser();
                     if (user.getRole().equals("Parent")) {
