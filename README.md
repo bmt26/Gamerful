@@ -373,6 +373,7 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
  - [X] Add video clip for games
    - [X] Update game model to get clip url
    - [X] Add new fragment with video view to display game clip
+ - [X] Add Infinite Scroll/Pagination to reviews page
 
 <img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Sprint4-Walkthorugh.gif" width=350>
    
