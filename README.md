@@ -9,12 +9,12 @@
 ## Overview
 ### Description
 
-Gamerful is a game recommendation and review app. This app gives you fast and easy access to details and add reviews of different variety of games. This app is also a great tool for any parents who wants to buy games for their children, as our platform provides reviews from perspective of both parents and children.
+Gamerful is a game recommendation and review app. This app gives you fast and easy access to details and adds reviews of different variety of games. This app is also a great tool for any parents who want to buy games for their children, as our platform provides reviews from the perspective of both parents and children.
 
 ### App Evaluation
 - **Category:** Gaming / Review
-- **Mobile:** This app would be primarily developed for mobile but would be viable on the computer such as reddit. Functionality wouldn't be limited to mobile devices, however the mobile version could have more features.
-- **Story:** Recommends games by category and user intrest. The user can create and view reviews on the games. Reviews are divided into what parents say and what kids say about the game.
+- **Mobile:** This app would be primarily developed for mobile but would be viable on a computer such as Reddit. Functionality wouldn't be limited to mobile devices, however, the mobile version could have more features.
+- **Story:** Recommends games by category and user interest. The user can create and view reviews on the games. Reviews are divided into what parents say and what kids say about the game.
 - **Market:** Any individual could choose to use this app, although the target demographic would be parents and those not familiar with games.
 - **Habit:** This app could be used frequently especially around holidays as this is when more parents purchase games for their children.
 - **Scope:** First we will start with recommending games based on user input. Then this could evolve into adding and viewing reviews.
@@ -25,38 +25,38 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 
 **Required Must-have Stories**
 
- - [X] User can sign up to create a new account using Parse authentication. User can add the following details:
+ - [X] User can sign up to create a new account using Parse authentication. Users can add the following details:
    - [X] Profile picture
    - [X] Username
    - [X] Password
    - [X] Category: Parent or Child
  - [X] User can log in and log out of his or her account.
- - [X] The current signed in user is persisted across app restarts.
- - [X] User will be able to see bottom navigation bar with following tabs:
+ - [X] The current signed-in user is persisted across app restarts.
+ - [X] User will be able to see the bottom navigation bar with the following tabs:
    - [X] Home
    - [X] Search
    - [X] Review page
    - [X] Profile Page
- - [X] In home page user will be able to browse through different list of games.
- - [X] In search page user will be able to search for a specific game or game review.
- - [X] On review page user will be able to see or post game review.
- - [X] On profile page user will be able to edit his/her profile, see their posted reviews and logout.
- - [X] User will be able to click on a game to see its details. Details page will include the following:
+ - [X] On the home page, the user will be able to browse through different lists of games.
+ - [X] On the search page, the user will be able to search for a specific game or game review.
+ - [X] On the review page, the user will be able to see and post game reviews.
+ - [X] On the profile page, the user will be able to edit his/her profile, see their posted reviews, and log out.
+ - [X] The user will be able to click on a game to see its details. The details page will include the following:
    - [X] Game related images
-   - [X] Game title / description
+   - [X] Game title/description
    - [X] Game info (release date, publisher, user rating, ESRB rating, etc)
    - [X] Direct link for where to buy the game?
  - [X] User will be able to post a rating.
- - [X] Make an app logo / splash screen.
+ - [X] Make an app logo/splash screen.
 
 
 ### 2. Screen Archetypes
 
 * Login Screen
-   * User will be able to login with their account and also will have the option to signup.
+   * User will be able to log in with their account and also will have the option to sign up.
 * Signup Screen
-   * User will be able to make a new account.
-   * User can add the following details:
+   * The user will be able to make a new account.
+   * The user can add the following details:
    + Profile picture
    + Username
    + Password
@@ -68,12 +68,12 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    * User will be presented with a variety of game genres to choose from.
    * User will be able to search for a specific game or game review.
 * Review Page Screen
-   * User will be able to see or post game review.
-   * User will also have the option to choose between what parents say and what kids say about the game.
+   * User will be able to see and post game reviews.
+   * The user will also have the option to choose between what parents say and what kids say about the game.
 * Profile Page Screen
-   * User will be able to see their posted reviews, edit profile, and logout.
+   * User will be able to see their posted reviews, edit their profile, and log out.
 * Details Screen
-   * User will be able to see an indepth review of a game.
+   * User will be able to see an in-depth review of a game.
 * Post Review Screen
    * User will be able to create and post a comment on a specific game for other users to see.
 * Edit Profile Page Screen
@@ -93,7 +93,7 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 * Login Screen
    * Home Screen
    * Signup Screen
-* Sigunup Screen
+* Signup Screen
    * Home Screen
    * Login Screen
 * Navigation Screen (Can Switch between following Screens)
@@ -145,9 +145,9 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    | objectId      | String   | unique id for the user post (default field) |
    | updatedAt     | DateTime | date when post is last updated (default field) |
    | username      | String   | stores the username of the user |
-   | createdAt     | DateTime | date when post is created (default field) |
+   | createdAt     | DateTime | date when a post is created (default field) |
    | password      | String   | stores the password of the user |
-   | role          | Boolean  | if true then user is signed in as a parent. If false then user is signed in as a child |
+   | role          | Boolean  | If true, the user is signed in as a parent. If false, then the user is signed in as a child |
    | profilePic    | File     | image that user uploads as their profile picture|
 
 #### Reviews
@@ -155,11 +155,11 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    | Property      | Type     | Description |
    | ------------- | -------- | ------------|
    | objectId      | String   | unique id for the user post (default field) |
-   | createdAt     | DateTime | date when post is created (default field) |
+   | createdAt     | DateTime | date when a post is created (default field) |
    | updatedAt     | DateTime | date when post is last updated (default field) |
-   | gameId        | String   | gameIds will to used to fetch game data from api |
+   | gameId        | String   | gameIds will be used to fetch game data from API |
    | comment       | String   | review of the game |
-   | starRating    | Number   | number of star rating that user posted to a game |
+   | starRating    | Number   | number of star ratings that user posted to a game |
    | user          | Pointer to User| app user (parent or child)
    | image         | File     | image that user posts (game images)|
    
@@ -198,7 +198,7 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
                         if (e == null) {
                 // Hooray! Let them use the app now.
                         } else {
-                                // Sign up didn't succeed. Look at the ParseException
+                                //Sign-up didn't succeed. Look at the ParseException
                                 // to figure out what went wrong
                                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -298,12 +298,12 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
    | `GET`      | /games/lists/recent-games   | gets list of top games this week |
    | `GET`      | /games/lists/recent-games-future | gets list of top games upcoming week |
    | `GET`      | /games/lists/main | gets top-rated games |
-   | `GET`      | /games/lists/popular   | gets all time popular games |
+   | `GET`      | /games/lists/popular   | gets all-time popular games |
    | `GET`      | /games?parent_platforms=1   | gets list of pc games |
    | `GET`      | /games?parent_platforms=2   | gets list of PS games |
    | `GET`      | /games?parent_platforms=3 | gets list of X Box games |
    | `GET`      | /genres     | gets list of all available genres |
-   | `GET`      | /search?search={SEARCH_QUERY} | gets list of games besed on passed query |
+   | `GET`      | /search?search={SEARCH_QUERY} | gets a list of games based on passed query |
    | `GET`      | /games/{GAME_ID}     | get details of a specific game |
    | `GET`      | /games/{GAME_ID}/stores     | get list of direct purchase link for a game |
    
@@ -311,19 +311,19 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 
 **Required Must-have Stories**
 
- - [X] User can sign up to create a new account using Parse authentication. User can add the following details:
+ - [X] User can sign up to create a new account using Parse authentication. Users can add the following details:
    - [X] Profile picture
    - [X] Username
    - [X] Password
    - [X] Category: Parent or Child
  - [X] User can log in and log out of his or her account.
- - [X] The current signed in user is persisted across app restarts.
- - [X] User will be able to see bottom navigation bar with following tabs:
+ - [X] The current signed-in user is persisted across app restarts.
+ - [X] User will be able to see the bottom navigation bar with the following tabs:
    - [X] Home
    - [X] Search
    - [X] Review page
    - [X] Profile Page
- - [X] Make an app logo / splash screen.
+ - [X] Make an app logo/splash screen.
 
 <img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Sprint1-Walkthorugh.gif" width=350>
 
@@ -331,11 +331,11 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 
 **Required Must-have Stories**
 
- - [X] In home page user will be able to browse through different list of games.
- - [X] On profile page user will be able to edit his/her profile, see their posted reviews and logout.
- - [X] User will be able to click on a game to see its details. Details page will include the following:
+ - [X] On the home page user will be able to browse through different lists of games.
+ - [X] On the profile page the user will be able to edit his/her profile, see their posted reviews, and log out.
+ - [X] User will be able to click on a game to see its details. The details page will include the following:
    - [X] Game related images
-   - [X] Game title / description
+   - [X] Game title/description
    - [X] Game info (release date, publisher, user rating, ESRB rating, etc)
    - [X] Direct link for where to buy the game?
 
@@ -345,18 +345,18 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 
 **Required Must-have Stories**
 
- - [X] From detail page a user can navigate to the compose page to be able to create a review on the game they navigated from. They can input the following:
+ - [X] From the detail page a user can navigate to the compose page to be able to create a review on the game they navigated from. They can input the following:
    - [X] Game Title
    - [X] Star Rating
    - [X] Comment
    - [X] Upload a game image
- - [X] On review page user will be able to see posted reviews from all users filtered as either posted from kids or posted from parents with the following contents:
+ - [X] On the review page the user will be able to see posted reviews from all users filtered as either posted from kids or posted from parents with the following contents:
    - [X] Game Title
    - [X] Review's user's username and profile picture
    - [X] Star Rating
    - [X] Comment
    - [X] Uploaded Game Image, if any
-- [X] From search page a user can create search to get relevant results for:
+- [X] From the search page a user can create a search to get relevant results for:
    - [X] Reviews
    - [X] Games
 
@@ -367,13 +367,13 @@ Gamerful is a game recommendation and review app. This app gives you fast and ea
 **Optional Nice-to-have Stories**
 
  - [X] Add loading animations
-   - [X] Add loading animation for login button
-   - [X] Add loading animation for signup button
+   - [X] Add loading animation for the login button
+   - [X] Add loading animation for the signup button
    - [X] Add loading animation for submit review button
  - [X] Add video clip for games
-   - [X] Update game model to get clip url
+   - [X] Update game model to get clip URL
    - [X] Add new fragment with video view to display game clip
- - [X] Add Infinite Scroll/Pagination to reviews page
+ - [X] Add Infinite Scroll/Pagination to the reviews page
 
 <img src="https://github.com/CS388-Group-Project-App/Gamerful/blob/master/Sprint4-Walkthorugh.gif" width=350>
    
